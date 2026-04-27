@@ -102,6 +102,20 @@ h1 {
   border-color: rgba(95, 36, 28, 0.42);
 }
 
+.arxiv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.arxiv-link::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: url("assets/arxiv-favicon-32x32.png") center / contain no-repeat;
+}
+
 main {
   display: grid;
   gap: 22px;
