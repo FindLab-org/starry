@@ -26,11 +26,11 @@ body {
     radial-gradient(circle at top left, rgba(173, 120, 74, 0.18), transparent 28%),
     radial-gradient(circle at top right, rgba(82, 108, 133, 0.14), transparent 24%),
     linear-gradient(180deg, #fbf8f2 0%, var(--bg) 100%);
-  font-family: "Inter", sans-serif;
+  font-family: "Google Sans", sans-serif;
 }
 
 .page-shell {
-  width: min(1040px, calc(100vw - 32px));
+  width: min(1120px, calc(100vw - 32px));
   margin: 0 auto;
   padding: 56px 0 72px;
 }
@@ -87,19 +87,20 @@ h1 {
   justify-content: center;
   min-width: 132px;
   padding: 12px 18px;
-  border: 1px solid rgba(95, 36, 28, 0.22);
+  border: 1px solid rgba(31, 35, 40, 0.22);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: var(--accent-strong);
+  background: #1f2328;
+  color: #f8f4ec;
   text-decoration: none;
   font-weight: 600;
+  box-shadow: 0 10px 24px rgba(31, 35, 40, 0.18);
   transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
 }
 
 .links a:hover {
   transform: translateY(-1px);
-  background: #fff;
-  border-color: rgba(95, 36, 28, 0.42);
+  background: #121519;
+  border-color: rgba(31, 35, 40, 0.42);
 }
 
 .arxiv-link {
@@ -116,14 +117,24 @@ h1 {
   background: url("assets/arxiv-favicon-32x32.png") center / contain no-repeat;
 }
 
+.huggingface {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.huggingface::before {
+  content: "\1F917";
+  line-height: 1;
+}
+
 main {
   display: grid;
   gap: 22px;
 }
 
-.grid {
+.stack {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
 }
 
@@ -138,6 +149,39 @@ main {
 
 .abstract-card {
   padding-top: 24px;
+}
+
+.media-card {
+  display: grid;
+  gap: 18px;
+}
+
+.media-copy {
+  display: grid;
+  gap: 8px;
+}
+
+.section-kicker {
+  color: var(--accent);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.figure-block {
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(60, 52, 43, 0.08);
+  padding: 14px;
+}
+
+.figure-block img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 h2 {
@@ -162,12 +206,8 @@ p {
 
 @media (max-width: 760px) {
   .page-shell {
-    width: min(100vw - 24px, 1040px);
+    width: min(100vw - 24px, 1120px);
     padding-top: 36px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
   }
 
   .card {

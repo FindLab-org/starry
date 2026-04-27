@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
         <p class="affiliation">FindLab</p>
         <nav class="links" aria-label="Paper links">
           <a class="arxiv-link" href="https://arxiv.org/abs/2604.20522" target="_blank" rel="noreferrer">arXiv</a>
-          <a href="https://huggingface.co/spaces/k-l-lambda/starry" target="_blank" rel="noreferrer">Live Demo</a>
+          <a class="huggingface" href="https://huggingface.co/spaces/k-l-lambda/starry" target="_blank" rel="noreferrer">Live Demo</a>
         </nav>
       </header>
 
@@ -37,21 +37,29 @@
           </p>
         </section>
 
-        <section class="grid">
-          <article class="card">
-            <h2>Paper</h2>
-            <p>
-              Read the full preprint on arXiv for the method, experiments, and appendices.
-            </p>
-            <p><a class="text-link arxiv-link" href="https://arxiv.org/abs/2604.20522" target="_blank" rel="noreferrer">https://arxiv.org/abs/2604.20522</a></p>
+        <section class="stack">
+          <article class="card media-card">
+            <figure class="figure-block">
+              <img src="assets/figures/figure-2-cv-pipeline.svg" alt="Visual pipeline for candidate generation in the Starry OMR system." />
+            </figure>
+            <div class="media-copy">
+              <p class="section-kicker">Visual Pipeline</p>
+              <p>
+                The system first produces robust local evidence: layout and staff processing, semantic heatmaps, OCR, and measure-level candidate assembly. Global score structure is deferred to the decoding stage.
+              </p>
+            </div>
           </article>
 
-          <article class="card">
-            <h2>Online Demo</h2>
-            <p>
-              Try the live Starry OMR demo for complex polyphonic score recognition.
-            </p>
-            <p><a class="text-link" href="https://huggingface.co/spaces/k-l-lambda/starry" target="_blank" rel="noreferrer">https://huggingface.co/spaces/k-l-lambda/starry</a></p>
+          <article class="card media-card">
+            <figure class="figure-block">
+              <img src="assets/figures/figure-9-beadpicker-arch.svg" alt="BeadPicker Transformer architecture for topology recognition." />
+            </figure>
+            <div class="media-copy">
+              <p class="section-kicker">BeadPicker Architecture</p>
+              <p>
+                The topology model reads measure-level candidates together with geometry, local attribute hints, and prefix context, then predicts successor probabilities and related fields used by the solver.
+              </p>
+            </div>
           </article>
         </section>
       </main>
