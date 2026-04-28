@@ -1,0 +1,534 @@
+<svg width="272px" height="190px" viewBox="0 0 6781 4730" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden">
+   <defs>
+      <symbol id="E0A4" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M0 -39c0 68 73 172 200 172c66 0 114 -37 114 -95c0 -84 -106 -171 -218 -171c-64 0 -96 30 -96 94z" />
+      </symbol>
+      <symbol id="E050" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M441 -245c-23 -4 -48 -6 -76 -6c-59 0 -102 7 -130 20c-88 42 -150 93 -187 154c-26 44 -43 103 -48 176c0 6 -1 13 -1 19c0 54 15 111 45 170c29 57 65 106 110 148s96 85 153 127c-3 16 -8 46 -13 92c-4 43 -5 73 -5 89c0 117 16 172 69 257c34 54 64 82 89 82 c21 0 43 -30 69 -92s39 -115 41 -159v-15c0 -109 -21 -162 -67 -241c-13 -20 -63 -90 -98 -118c-13 -9 -25 -19 -37 -29l31 -181c8 1 18 2 28 2c58 0 102 -12 133 -35c59 -43 92 -104 98 -184c1 -7 1 -15 1 -22c0 -123 -87 -209 -181 -248c8 -57 17 -110 25 -162 c5 -31 6 -58 6 -80c0 -30 -5 -53 -14 -70c-35 -64 -88 -99 -158 -103c-5 0 -11 -1 -16 -1c-37 0 -72 10 -108 27c-50 24 -77 59 -80 105v11c0 29 7 55 20 76c18 28 45 42 79 44h6c49 0 93 -42 97 -87v-9c0 -51 -34 -86 -105 -106c17 -24 51 -36 102 -36c62 0 116 43 140 85 c9 16 13 41 13 74c0 20 -1 42 -5 67c-8 53 -18 106 -26 159zM461 939c-95 0 -135 -175 -135 -286c0 -24 2 -48 5 -71c50 39 92 82 127 128c40 53 60 100 60 140v8c-4 53 -22 81 -55 81h-2zM406 119l54 -326c73 25 110 78 110 161c0 7 0 15 -1 23c-7 95 -57 142 -151 142h-12 zM382 117c-72 -2 -128 -47 -128 -120v-7c2 -46 43 -99 75 -115c-3 -2 -7 -5 -10 -10c-70 33 -116 88 -123 172v11c0 68 44 126 88 159c23 17 49 29 78 36l-29 170c-21 -13 -52 -37 -92 -73c-50 -44 -86 -84 -109 -119c-45 -69 -67 -130 -67 -182v-13c5 -68 35 -127 93 -176 s125 -73 203 -73c25 0 50 3 75 9c-19 111 -36 221 -54 331z" />
+      </symbol>
+      <symbol id="E062" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M582 -120c0 32 26 58 58 58s58 -26 58 -58s-26 -58 -58 -58s-58 26 -58 58zM582 120c0 32 26 58 58 58s58 -26 58 -58s-26 -58 -58 -58s-58 26 -58 58zM158 96c51 0 73 -14 88 -49l16 -39c0 -17 -2 -30 -7 -40c-3 -11 -10 -21 -19 -31c-17 -18 -49 -43 -84 -43 c-55 0 -77 13 -112 44c-24 21 -35 55 -35 100c0 46 14 81 32 112c30 52 71 79 137 93l36 6l26 2c154 0 235 -68 274 -182c11 -32 18 -68 18 -107c0 -103 -26 -182 -68 -250c-89 -145 -234 -230 -412 -288l-30 -5c-9 0 -14 3 -14 8c3 10 5 11 10 16c35 15 70 30 96 44l78 43 c96 57 162 136 197 258c9 33 17 60 22 100c3 22 5 35 6 39c-7 69 -16 115 -23 140s-4 22 -16 40c-8 12 -19 23 -31 34c-24 21 -62 44 -118 44c-48 0 -84 -8 -113 -28c-28 -19 -42 -44 -42 -73v-16c2 -5 3 -9 4 -11c24 22 52 39 84 39z" />
+      </symbol>
+      <symbol id="E262" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M136 186v169h17v-164l44 14v-91l-44 -14v-165l44 12v-91l-44 -13v-155h-17v150l-76 -22v-155h-17v149l-43 -13v90l43 14v167l-43 -14v92l43 13v169h17v-163zM60 73v-167l76 22v168z" />
+      </symbol>
+      <symbol id="E260" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M20 110c32 16 54 27 93 27c26 0 35 -3 54 -13c13 -7 24 -20 27 -38l4 -25c0 -28 -16 -57 -45 -89c-23 -25 -39 -44 -65 -68l-88 -79v644h20v-359zM90 106c-32 0 -48 -10 -70 -29v-194c31 31 54 59 71 84c21 32 32 59 32 84c0 9 1 16 1 20c0 14 -3 21 -11 30l-8 3z" />
+      </symbol>
+      <symbol id="E261" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M0 -188v539h18v-191l139 22v-533h-17v186zM18 -100l122 17v176l-122 -19v-174z" />
+      </symbol>
+      <symbol id="E08A" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M340 179c-9 24 -56 41 -89 41c-46 0 -81 -28 -100 -58c-17 -28 -25 -78 -25 -150c0 -65 2 -111 8 -135c8 -31 18 -49 40 -67c20 -17 43 -25 70 -25c54 0 92 36 115 75c14 25 23 54 28 88h27c0 -63 -24 -105 -58 -141c-35 -38 -82 -56 -140 -56c-45 0 -83 13 -115 39 c-57 45 -101 130 -101 226c0 59 33 127 68 163c36 37 97 72 160 72c36 0 93 -21 121 -40c11 -8 23 -17 33 -30c19 -23 27 -48 27 -76c0 -51 -35 -88 -86 -88c-43 0 -76 27 -76 68c0 26 7 35 21 51c15 17 32 27 58 32c7 2 14 7 14 11z" />
+      </symbol>
+      <symbol id="E4E7" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M133 -111c0 -33 -21 -50 -52 -55c10 -3 18 -4 25 -4c40 0 69 24 90 47l66 197c-36 -18 -64 -25 -112 -25c-23 0 -38 3 -45 8c-37 7 -55 27 -55 59c8 35 30 54 68 58c45 -6 49 -13 64 -48c0 -3 1 -5 1 -7c0 -27 -25 -46 -52 -49c6 -4 15 -6 26 -6c32 2 62 14 88 29 c32 19 44 36 59 71l7 1l10 2h4c-72 -220 -143 -439 -215 -659h-37l108 324c-20 -13 -51 -20 -82 -20c-21 0 -35 4 -43 10c-37 6 -55 26 -55 58c8 35 31 56 68 60c43 -8 48 -13 64 -51z" />
+      </symbol>
+      <symbol id="E4E4" viewBox="0 0 1000 1000" overflow="inherit">
+         <path transform="scale(1,-1)" d="M0 10v105c0 9 1 10 10 10h280c9 0 10 -1 10 -10v-105c0 -9 -1 -10 -10 -10h-280c-9 0 -10 1 -10 10z" />
+      </symbol>
+   </defs>
+   <style type="text/css">g.page-margin{font-family:Times,serif;}</style>
+   <defs><path id="full-anim-path" d="M13,810 C500,780 1000,790 1486,810 C1750,1100 1900,1200 2176,1260 C2350,900 2450,780 2626,720 C2800,680 2900,690 3076,720 C3350,760 3650,870 3927,900 C4150,820 4350,700 4559,630 C5050,580 5600,600 6061,630 C6300,630 7300,2295 7577,2295 C8111,2200 8661,1960 9137,1880 C9241,1960 9341,2060 9460,2115 C9641,2180 9811,2210 9988,2205 C10101,2180 10191,2150 10304,2115 C10411,2230 10491,2380 10620,2475 C10911,2200 11261,1200 11596,1080 C11781,1060 11961,1070 12122,1080 C12400,1080 13300,2745 13608,2745 C13872,2700 14072,2620 14298,2565 C14622,2520 14922,2490 15198,2475 C15722,2440 16222,2450 16681,2475 C16842,2500 16992,2540 17155,2565 C17322,2620 17492,2650 17657,2655 C17762,2640 17862,2600 17973,2565 C18052,2560 18112,2562 18183,2565"/></defs>
+   <svg class="definition-scale" color="black" x="0" y="0" width="25220" height="4730" viewBox="0 0 25220 4730">
+      <g class="camera-track">
+        <animateTransform attributeName="transform" type="translate" calcMode="linear" keyTimes="0.000000;0.005856;0.011712;0.017567;0.023423;0.029279;0.035135;0.040991;0.046846;0.052702;0.058558;0.064414;0.070270;0.073611;0.076952;0.080293;0.083634;0.086976;0.090317;0.093658;0.096999;0.100340;0.103682;0.107023;0.110364;0.113239;0.116114;0.118989;0.121864;0.124739;0.127614;0.130489;0.133364;0.136239;0.139114;0.141989;0.144864;0.146668;0.148471;0.150275;0.152078;0.153882;0.155685;0.157489;0.159292;0.161096;0.162899;0.164703;0.166506;0.169965;0.173424;0.176883;0.180341;0.183800;0.187259;0.190718;0.194176;0.197635;0.201094;0.204553;0.208011;0.210744;0.213476;0.216208;0.218940;0.221673;0.224405;0.227137;0.229870;0.232602;0.235334;0.238066;0.240799;0.246774;0.252749;0.258724;0.264699;0.270674;0.276649;0.282624;0.288600;0.294575;0.300550;0.306525;0.312500;0.317708;0.322917;0.328125;0.333333;0.338542;0.343750;0.348958;0.354167;0.359375;0.364583;0.369792;0.375000;0.382497;0.389995;0.397492;0.404989;0.412487;0.419984;0.427481;0.434979;0.442476;0.449973;0.457471;0.464968;0.466827;0.468686;0.470545;0.472403;0.474262;0.476121;0.477980;0.479839;0.481698;0.483557;0.485415;0.487274;0.489775;0.492276;0.494777;0.497278;0.499779;0.502279;0.504780;0.507281;0.509782;0.512283;0.514784;0.517285;0.518810;0.520336;0.521861;0.523386;0.524912;0.526437;0.527963;0.529488;0.531014;0.532539;0.534065;0.535590;0.537820;0.540049;0.542279;0.544509;0.546738;0.548968;0.551198;0.553427;0.555657;0.557887;0.560116;0.562346;0.570331;0.578316;0.586302;0.594287;0.602272;0.610257;0.618242;0.626227;0.634212;0.642197;0.650182;0.658168;0.660612;0.663056;0.665501;0.667945;0.670389;0.672834;0.675278;0.677723;0.680167;0.682611;0.685056;0.687500;0.692708;0.697917;0.703125;0.708333;0.713542;0.718750;0.723958;0.729167;0.734375;0.739583;0.744792;0.750000;0.753207;0.756413;0.759620;0.762826;0.766033;0.769240;0.772446;0.775653;0.778859;0.782066;0.785273;0.788479;0.792545;0.796612;0.800678;0.804744;0.808810;0.812876;0.816942;0.821008;0.825075;0.829141;0.833207;0.837273;0.843942;0.850611;0.857280;0.863949;0.870618;0.877288;0.883957;0.890626;0.897295;0.903964;0.910633;0.917302;0.919471;0.921639;0.923808;0.925976;0.928145;0.930314;0.932482;0.934651;0.936819;0.938988;0.941156;0.943325;0.945625;0.947925;0.950225;0.952525;0.954825;0.957125;0.959425;0.961725;0.964025;0.966325;0.968625;0.970925;0.972403;0.973882;0.975361;0.976839;0.978318;0.979797;0.981275;0.982754;0.984232;0.985711;0.987190;0.988668;0.989613;0.990557;0.991501;0.992446;0.993390;0.994334;0.995278;0.996223;0.997167;0.998111;0.999056;1.000000" values="2877.500 0;2754.880 0;2632.183 0;2509.434 0;2386.651 0;2263.852 0;2141.048 0;2018.249 0;1895.462 0;1772.691 0;1649.941 0;1527.210 0;1404.500 0;1356.951 0;1308.484 0;1258.808 0;1207.566 0;1154.343 0;1098.721 0;1040.382 0;979.241 0;915.549 0;849.815 0;782.630 0;714.500 0;687.979 0;660.785 0;632.710 0;603.475 0;572.697 0;539.865 0;504.290 0;465.142 0;421.587 0;373.206 0;320.439 0;264.500 0;227.528 0;190.327 0;152.899 0;115.272 0;77.508 0;39.690 0;1.903 0;-35.791 0;-73.365 0;-110.825 0;-148.194 0;-185.500 0;-257.058 0;-328.208 0;-399.011 0;-469.554 0;-539.938 0;-610.267 0;-680.647 0;-751.181 0;-821.965 0;-893.079 0;-964.585 0;-1036.500 0;-1090.143 0;-1143.244 0;-1195.881 0;-1248.152 0;-1300.173 0;-1352.070 0;-1403.980 0;-1456.043 0;-1508.399 0;-1561.183 0;-1614.517 0;-1668.500 0;-1793.307 0;-1918.336 0;-2043.507 0;-2168.762 0;-2294.057 0;-2419.363 0;-2544.655 0;-2669.917 0;-2795.139 0;-2920.312 0;-3045.432 0;-3170.500 0;-3326.027 0;-3454.278 0;-3574.642 0;-3691.387 0;-3806.386 0;-3920.785 0;-4035.504 0;-4151.490 0;-4269.992 0;-4393.116 0;-4525.637 0;-4686.500 0;-4818.533 0;-4949.587 0;-5079.766 0;-5209.228 0;-5338.169 0;-5466.811 0;-5595.397 0;-5724.180 0;-5853.428 0;-5983.407 0;-6114.367 0;-6246.500 0;-6272.739 0;-6298.645 0;-6324.363 0;-6350.036 0;-6375.802 0;-6401.800 0;-6428.160 0;-6455.011 0;-6482.474 0;-6510.655 0;-6539.645 0;-6569.500 0;-6611.942 0;-6654.740 0;-6697.889 0;-6741.375 0;-6785.177 0;-6829.267 0;-6873.609 0;-6918.162 0;-6962.880 0;-7007.710 0;-7052.601 0;-7097.500 0;-7124.203 0;-7150.822 0;-7177.355 0;-7203.804 0;-7230.172 0;-7256.469 0;-7282.706 0;-7308.897 0;-7335.057 0;-7361.202 0;-7387.345 0;-7413.500 0;-7440.128 0;-7465.676 0;-7490.456 0;-7514.784 0;-7538.976 0;-7563.341 0;-7588.188 0;-7613.816 0;-7640.515 0;-7668.555 0;-7698.162 0;-7729.500 0;-7822.884 0;-7903.169 0;-7976.954 0;-8047.354 0;-8116.244 0;-8185.025 0;-8254.972 0;-8327.495 0;-8404.465 0;-8488.784 0;-8585.748 0;-8705.500 0;-8749.188 0;-8792.962 0;-8836.794 0;-8880.662 0;-8924.548 0;-8968.437 0;-9012.319 0;-9056.188 0;-9100.039 0;-9143.873 0;-9187.692 0;-9231.500 0;-9389.426 0;-9516.900 0;-9634.529 0;-9747.562 0;-9858.320 0;-9968.222 0;-10078.399 0;-10190.007 0;-10304.549 0;-10424.538 0;-10555.613 0;-10717.500 0;-10775.983 0;-10834.192 0;-10892.116 0;-10949.761 0;-11007.152 0;-11064.336 0;-11121.380 0;-11178.366 0;-11235.385 0;-11292.529 0;-11349.879 0;-11407.500 0;-11482.207 0;-11556.970 0;-11631.789 0;-11706.664 0;-11781.592 0;-11856.574 0;-11931.609 0;-12006.694 0;-12081.828 0;-12157.009 0;-12232.234 0;-12307.500 0;-12430.935 0;-12554.453 0;-12678.034 0;-12801.657 0;-12925.306 0;-13048.966 0;-13172.621 0;-13296.261 0;-13419.876 0;-13543.458 0;-13667.001 0;-13790.500 0;-13830.184 0;-13869.772 0;-13909.276 0;-13948.713 0;-13988.104 0;-14027.472 0;-14066.843 0;-14106.241 0;-14145.687 0;-14185.203 0;-14224.804 0;-14264.500 0;-14305.155 0;-14346.093 0;-14387.295 0;-14428.741 0;-14470.410 0;-14512.281 0;-14554.333 0;-14596.544 0;-14638.891 0;-14681.349 0;-14723.894 0;-14766.500 0;-14793.557 0;-14820.434 0;-14847.123 0;-14873.631 0;-14899.978 0;-14926.189 0;-14952.296 0;-14978.335 0;-15004.341 0;-15030.349 0;-15056.392 0;-15082.500 0;-15099.980 0;-15117.471 0;-15134.970 0;-15152.475 0;-15169.983 0;-15187.492 0;-15205.001 0;-15222.507 0;-15240.010 0;-15257.509 0;-15275.005 0;-15292.500 0" dur="8.0s" repeatCount="indefinite"/>
+      <g class="page-margin" transform="translate(500,500)">
+      <defs>
+        <mask id="mp0" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M13,810 C500,780 1000,790 1486,810" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.070270;1" values="0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp1" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M1486,810 C1750,1100 1900,1200 2176,1260" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.070270;0.110364;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp2" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M2176,1260 C2350,900 2450,780 2626,720" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.110364;0.144864;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp3" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M2626,720 C2800,680 2900,690 3076,720" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.144864;0.166506;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp4" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M3076,720 C3350,760 3650,870 3927,900" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.166506;0.208011;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp5" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M3927,900 C4150,820 4350,700 4559,630" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.208011;0.240799;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp6" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M4559,630 C5050,580 5600,600 6061,630" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.240799;0.312500;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp7" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M6061,630 C6300,630 7300,2295 7577,2295" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.312500;0.375000;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp8" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M7577,2295 C8111,2200 8661,1960 9137,1880" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.375000;0.464968;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp9" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M9137,1880 C9241,1960 9341,2060 9460,2115" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.464968;0.487274;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp10" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M9460,2115 C9641,2180 9811,2210 9988,2205" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.487274;0.517285;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp11" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M9988,2205 C10101,2180 10191,2150 10304,2115" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.517285;0.535590;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp12" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M10304,2115 C10411,2230 10491,2380 10620,2475" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.535590;0.562346;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp13" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M10620,2475 C10911,2200 11261,1200 11596,1080" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.562346;0.658168;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp14" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M11596,1080 C11781,1060 11961,1070 12122,1080" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.658168;0.687500;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp15" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M12122,1080 C12400,1080 13300,2745 13608,2745" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.687500;0.750000;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp16" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M13608,2745 C13872,2700 14072,2620 14298,2565" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.750000;0.788479;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp17" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M14298,2565 C14622,2520 14922,2490 15198,2475" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.788479;0.837273;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp18" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M15198,2475 C15722,2440 16222,2450 16681,2475" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.837273;0.917302;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp19" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M16681,2475 C16842,2500 16992,2540 17155,2565" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.917302;0.943325;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp20" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M17155,2565 C17322,2620 17492,2650 17657,2655" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.943325;0.970925;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp21" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M17657,2655 C17762,2640 17862,2600 17973,2565" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.970925;0.988668;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+        <mask id="mp22" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="25220" height="4730" fill="black"/><path d="M17973,2565 C18052,2560 18112,2562 18183,2565" fill="none" stroke="white" stroke-width="64" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="0 1"><animate attributeName="stroke-dasharray" calcMode="linear" keyTimes="0;0.988668;1.000000;1" values="0 1;0 1;1 0;1 0" dur="8.0s" repeatCount="indefinite"/></path></mask>
+      </defs>
+      <path d="M13 540 L13 3195" stroke="currentColor" stroke-width="27"/>
+      <g class="grpSym">
+         <path d="M-72,3177 C-432,2637 18,2048 -252,1868 C81,2048 -369,2637 -72,3177" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
+         <path d="M-72,558 C-369,1098 81,1688 -252,1868 C18,1688 -432,1098 -72,558" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
+      </g>
+      <path d="M0 540 L24244 540" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 720 L24244 720" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 900 L24244 900" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 1080 L24244 1080" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 1260 L24244 1260" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 2475 L24244 2475" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 2655 L24244 2655" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 2835 L24244 2835" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 3015 L24244 3015" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 3195 L24244 3195" stroke="currentColor" stroke-width="13"/>
+      <path d="M0 540 L0 1260" stroke="currentColor" stroke-width="27"/>
+      <path d="M0 2475 L0 3195" stroke="currentColor" stroke-width="27"/>
+      <path d="M0 1260 L0 2475" stroke="currentColor" stroke-width="27"/>
+      <use href="#E050" x="117" y="1080" height="720px" width="720px"/>
+      <use href="#E062" x="117" y="2655" height="720px" width="720px"/>
+      <use href="#E08A" x="798" y="900" height="720px" width="720px"/>
+      <use href="#E08A" x="798" y="2835" height="720px" width="720px"/>
+      <g color="black" fill="black">
+      <use href="#E0A4" x="1366" y="810" height="720px" width="720px" />
+      <path d="M1375 838 L1375 1440" stroke="currentColor" stroke-width="18" />
+      <polygon points="2264,180 2732,135 2732,225 2264,270" />
+      <use href="#E0A4" x="2056" y="1260" height="720px" width="720px" />
+      <path d="M2273 1232 L2273 198" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="2506" y="720" height="720px" width="720px" />
+      <path d="M2723 692 L2723 153" stroke="currentColor" stroke-width="18" />
+      <polygon points="2956,1305 3825,1485 3825,1395 2956,1215" />
+      <use href="#E0A4" x="2956" y="720" height="720px" width="720px" />
+      <path d="M2965 748 L2965 1287" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="3807" y="900" height="720px" width="720px" />
+      <path d="M3816 928 L3816 1467" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="4439" y="630" height="720px" width="720px" />
+      <path d="M4656 602 L4656 120" stroke="currentColor" stroke-width="18" />
+      <use href="#E260" x="4252" y="630" height="720px" width="720px" />
+      <path d="M2619,855 C2741,962 2944,962 3069,855 C2965,1009 2720,1009 2619,855" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
+      <use href="#E4E4" x="1366" y="2295" height="720px" width="720px" />
+      <path d="M1318 2295 L1630 2295" stroke="currentColor" stroke-width="22" />
+      <use href="#E4E7" x="2956" y="1935" height="720px" width="720px" />
+      <polygon points="3487,1530 4349,1530 4349,1620 3487,1620" />
+      <polygon points="3487,1665 4024,1665 4024,1755 3487,1755" />
+      <polygon points="4024,1665 4349,1665 4349,1755 4024,1755" />
+      <use href="#E0A4" x="3279" y="2115" height="720px" width="720px" />
+      <path d="M3496 2087 L3496 1548" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="3807" y="2205" height="720px" width="720px" />
+      <path d="M4024 2177 L4024 1548" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="3595" y="2205" height="720px" width="720px" />
+      <use href="#E0A4" x="4123" y="2115" height="720px" width="720px" />
+      <path d="M4340 2087 L4340 1548" stroke="currentColor" stroke-width="18" />
+      <polygon points="4647,1845 5433,1665 5433,1755 4647,1935" />
+      <use href="#E0A4" x="4439" y="2475" height="720px" width="720px" />
+      <path d="M4656 2447 L4656 1845" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="5415" y="1080" height="720px" width="720px" />
+      <path d="M5424 1108 L5424 1755" stroke="currentColor" stroke-width="18" />
+      <path d="M3227,2520 C3523,2627 4095,2627 4394,2520 C4105,2675 3512,2675 3227,2520" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
+      <path d="M3231 2295 L3553 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M3777 2295 L4063 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M4093 2295 L4379 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M3231 2115 L3553 2115" stroke="currentColor" stroke-width="22" />
+      <path d="M4093 2115 L4379 2115" stroke="currentColor" stroke-width="22" />
+      <use href="#E0A4" x="1366" y="2745" height="720px" width="720px" />
+      <path d="M1375 2773 L1375 3375" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="2056" y="2565" height="720px" width="720px" />
+      <path d="M2065 2593 L2065 3195" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="1870" y="2565" height="720px" width="720px" />
+      <use href="#E0A4" x="2956" y="2475" height="720px" width="720px" />
+      <path d="M2965 2503 L2965 3105" stroke="currentColor" stroke-width="18" />
+      <polygon points="4439,3240 5749,3240 5749,3150 4439,3150" />
+      <polygon points="4439,3105 4922,3105 4922,3015 4439,3015" />
+      <polygon points="4922,3105 5424,3105 5424,3015 4922,3015" />
+      <polygon points="5424,3105 5749,3105 5749,3015 5424,3015" />
+      <use href="#E0A4" x="4439" y="2475" height="720px" width="720px" />
+      <path d="M4448 2503 L4448 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="4913" y="2565" height="720px" width="720px" />
+      <path d="M4922 2593 L4922 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E261" x="4755" y="2565" height="720px" width="720px" />
+      <use href="#E0A4" x="5415" y="2655" height="720px" width="720px" />
+      <path d="M5424 2683 L5424 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="5229" y="2655" height="720px" width="720px" />
+      <use href="#E0A4" x="5731" y="2565" height="720px" width="720px" />
+      <path d="M5740 2593 L5740 3222" stroke="currentColor" stroke-width="18" />
+      </g>
+      <path d="M6061 540 L6061 1260" stroke="currentColor" stroke-width="27"/>
+      <path d="M6061 2475 L6061 3195" stroke="currentColor" stroke-width="27"/>
+      <path d="M6061 1260 L6061 2475" stroke="currentColor" stroke-width="27"/>
+      <g color="black" fill="black" transform="translate(6061,0)">
+      <use href="#E050" x="117" y="1080" height="720px" width="720px"/>
+      <use href="#E062" x="117" y="2655" height="720px" width="720px"/>
+      <use href="#E08A" x="798" y="900" height="720px" width="720px"/>
+      <use href="#E08A" x="798" y="2835" height="720px" width="720px"/>
+      <use href="#E0A4" x="1366" y="810" height="720px" width="720px" />
+      <path d="M1375 838 L1375 1440" stroke="currentColor" stroke-width="18" />
+      <polygon points="2264,180 2732,135 2732,225 2264,270" />
+      <use href="#E0A4" x="2056" y="1260" height="720px" width="720px" />
+      <path d="M2273 1232 L2273 198" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="2506" y="720" height="720px" width="720px" />
+      <path d="M2723 692 L2723 153" stroke="currentColor" stroke-width="18" />
+      <polygon points="2956,1305 3825,1485 3825,1395 2956,1215" />
+      <use href="#E0A4" x="2956" y="720" height="720px" width="720px" />
+      <path d="M2965 748 L2965 1287" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="3807" y="900" height="720px" width="720px" />
+      <path d="M3816 928 L3816 1467" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="4439" y="630" height="720px" width="720px" />
+      <path d="M4656 602 L4656 120" stroke="currentColor" stroke-width="18" />
+      <use href="#E260" x="4252" y="630" height="720px" width="720px" />
+      <path d="M2619,855 C2741,962 2944,962 3069,855 C2965,1009 2720,1009 2619,855" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
+      <use href="#E4E4" x="1366" y="2295" height="720px" width="720px" />
+      <path d="M1318 2295 L1630 2295" stroke="currentColor" stroke-width="22" />
+      <use href="#E4E7" x="2956" y="1935" height="720px" width="720px" />
+      <polygon points="3487,1530 4349,1530 4349,1620 3487,1620" />
+      <polygon points="3487,1665 4024,1665 4024,1755 3487,1755" />
+      <polygon points="4024,1665 4349,1665 4349,1755 4024,1755" />
+      <use href="#E0A4" x="3279" y="2115" height="720px" width="720px" />
+      <path d="M3496 2087 L3496 1548" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="3807" y="2205" height="720px" width="720px" />
+      <path d="M4024 2177 L4024 1548" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="3595" y="2205" height="720px" width="720px" />
+      <use href="#E0A4" x="4123" y="2115" height="720px" width="720px" />
+      <path d="M4340 2087 L4340 1548" stroke="currentColor" stroke-width="18" />
+      <polygon points="4647,1845 5433,1665 5433,1755 4647,1935" />
+      <use href="#E0A4" x="4439" y="2475" height="720px" width="720px" />
+      <path d="M4656 2447 L4656 1845" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="5415" y="1080" height="720px" width="720px" />
+      <path d="M5424 1108 L5424 1755" stroke="currentColor" stroke-width="18" />
+      <path d="M3227,2520 C3523,2627 4095,2627 4394,2520 C4105,2675 3512,2675 3227,2520" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
+      <path d="M3231 2295 L3553 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M3777 2295 L4063 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M4093 2295 L4379 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M3231 2115 L3553 2115" stroke="currentColor" stroke-width="22" />
+      <path d="M4093 2115 L4379 2115" stroke="currentColor" stroke-width="22" />
+      <use href="#E0A4" x="1366" y="2745" height="720px" width="720px" />
+      <path d="M1375 2773 L1375 3375" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="2056" y="2565" height="720px" width="720px" />
+      <path d="M2065 2593 L2065 3195" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="1870" y="2565" height="720px" width="720px" />
+      <use href="#E0A4" x="2956" y="2475" height="720px" width="720px" />
+      <path d="M2965 2503 L2965 3105" stroke="currentColor" stroke-width="18" />
+      <polygon points="4439,3240 5749,3240 5749,3150 4439,3150" />
+      <polygon points="4439,3105 4922,3105 4922,3015 4439,3015" />
+      <polygon points="4922,3105 5424,3105 5424,3015 4922,3015" />
+      <polygon points="5424,3105 5749,3105 5749,3015 5424,3015" />
+      <use href="#E0A4" x="4439" y="2475" height="720px" width="720px" />
+      <path d="M4448 2503 L4448 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="4913" y="2565" height="720px" width="720px" />
+      <path d="M4922 2593 L4922 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E261" x="4755" y="2565" height="720px" width="720px" />
+      <use href="#E0A4" x="5415" y="2655" height="720px" width="720px" />
+      <path d="M5424 2683 L5424 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="5229" y="2655" height="720px" width="720px" />
+      <use href="#E0A4" x="5731" y="2565" height="720px" width="720px" />
+      <path d="M5740 2593 L5740 3222" stroke="currentColor" stroke-width="18" />
+      </g>
+      <path d="M12122 540 L12122 1260" stroke="currentColor" stroke-width="27"/>
+      <path d="M12122 2475 L12122 3195" stroke="currentColor" stroke-width="27"/>
+      <path d="M12122 1260 L12122 2475" stroke="currentColor" stroke-width="27"/>
+      <g color="black" fill="black" transform="translate(12122,0)">
+      <use href="#E050" x="117" y="1080" height="720px" width="720px"/>
+      <use href="#E062" x="117" y="2655" height="720px" width="720px"/>
+      <use href="#E08A" x="798" y="900" height="720px" width="720px"/>
+      <use href="#E08A" x="798" y="2835" height="720px" width="720px"/>
+      <use href="#E0A4" x="1366" y="810" height="720px" width="720px" />
+      <path d="M1375 838 L1375 1440" stroke="currentColor" stroke-width="18" />
+      <polygon points="2264,180 2732,135 2732,225 2264,270" />
+      <use href="#E0A4" x="2056" y="1260" height="720px" width="720px" />
+      <path d="M2273 1232 L2273 198" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="2506" y="720" height="720px" width="720px" />
+      <path d="M2723 692 L2723 153" stroke="currentColor" stroke-width="18" />
+      <polygon points="2956,1305 3825,1485 3825,1395 2956,1215" />
+      <use href="#E0A4" x="2956" y="720" height="720px" width="720px" />
+      <path d="M2965 748 L2965 1287" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="3807" y="900" height="720px" width="720px" />
+      <path d="M3816 928 L3816 1467" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="4439" y="630" height="720px" width="720px" />
+      <path d="M4656 602 L4656 120" stroke="currentColor" stroke-width="18" />
+      <use href="#E260" x="4252" y="630" height="720px" width="720px" />
+      <path d="M2619,855 C2741,962 2944,962 3069,855 C2965,1009 2720,1009 2619,855" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
+      <use href="#E4E4" x="1366" y="2295" height="720px" width="720px" />
+      <path d="M1318 2295 L1630 2295" stroke="currentColor" stroke-width="22" />
+      <use href="#E4E7" x="2956" y="1935" height="720px" width="720px" />
+      <polygon points="3487,1530 4349,1530 4349,1620 3487,1620" />
+      <polygon points="3487,1665 4024,1665 4024,1755 3487,1755" />
+      <polygon points="4024,1665 4349,1665 4349,1755 4024,1755" />
+      <use href="#E0A4" x="3279" y="2115" height="720px" width="720px" />
+      <path d="M3496 2087 L3496 1548" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="3807" y="2205" height="720px" width="720px" />
+      <path d="M4024 2177 L4024 1548" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="3595" y="2205" height="720px" width="720px" />
+      <use href="#E0A4" x="4123" y="2115" height="720px" width="720px" />
+      <path d="M4340 2087 L4340 1548" stroke="currentColor" stroke-width="18" />
+      <polygon points="4647,1845 5433,1665 5433,1755 4647,1935" />
+      <use href="#E0A4" x="4439" y="2475" height="720px" width="720px" />
+      <path d="M4656 2447 L4656 1845" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="5415" y="1080" height="720px" width="720px" />
+      <path d="M5424 1108 L5424 1755" stroke="currentColor" stroke-width="18" />
+      <path d="M3227,2520 C3523,2627 4095,2627 4394,2520 C4105,2675 3512,2675 3227,2520" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
+      <path d="M3231 2295 L3553 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M3777 2295 L4063 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M4093 2295 L4379 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M3231 2115 L3553 2115" stroke="currentColor" stroke-width="22" />
+      <path d="M4093 2115 L4379 2115" stroke="currentColor" stroke-width="22" />
+      <use href="#E0A4" x="1366" y="2745" height="720px" width="720px" />
+      <path d="M1375 2773 L1375 3375" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="2056" y="2565" height="720px" width="720px" />
+      <path d="M2065 2593 L2065 3195" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="1870" y="2565" height="720px" width="720px" />
+      <use href="#E0A4" x="2956" y="2475" height="720px" width="720px" />
+      <path d="M2965 2503 L2965 3105" stroke="currentColor" stroke-width="18" />
+      <polygon points="4439,3240 5749,3240 5749,3150 4439,3150" />
+      <polygon points="4439,3105 4922,3105 4922,3015 4439,3015" />
+      <polygon points="4922,3105 5424,3105 5424,3015 4922,3015" />
+      <polygon points="5424,3105 5749,3105 5749,3015 5424,3015" />
+      <use href="#E0A4" x="4439" y="2475" height="720px" width="720px" />
+      <path d="M4448 2503 L4448 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="4913" y="2565" height="720px" width="720px" />
+      <path d="M4922 2593 L4922 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E261" x="4755" y="2565" height="720px" width="720px" />
+      <use href="#E0A4" x="5415" y="2655" height="720px" width="720px" />
+      <path d="M5424 2683 L5424 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="5229" y="2655" height="720px" width="720px" />
+      <use href="#E0A4" x="5731" y="2565" height="720px" width="720px" />
+      <path d="M5740 2593 L5740 3222" stroke="currentColor" stroke-width="18" />
+      </g>
+      <path d="M18183 540 L18183 1260" stroke="currentColor" stroke-width="27"/>
+      <path d="M18183 2475 L18183 3195" stroke="currentColor" stroke-width="27"/>
+      <path d="M18183 1260 L18183 2475" stroke="currentColor" stroke-width="27"/>
+      <g color="black" fill="black" transform="translate(18183,0)">
+      <use href="#E050" x="117" y="1080" height="720px" width="720px"/>
+      <use href="#E062" x="117" y="2655" height="720px" width="720px"/>
+      <use href="#E08A" x="798" y="900" height="720px" width="720px"/>
+      <use href="#E08A" x="798" y="2835" height="720px" width="720px"/>
+      <use href="#E0A4" x="1366" y="810" height="720px" width="720px" />
+      <path d="M1375 838 L1375 1440" stroke="currentColor" stroke-width="18" />
+      <polygon points="2264,180 2732,135 2732,225 2264,270" />
+      <use href="#E0A4" x="2056" y="1260" height="720px" width="720px" />
+      <path d="M2273 1232 L2273 198" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="2506" y="720" height="720px" width="720px" />
+      <path d="M2723 692 L2723 153" stroke="currentColor" stroke-width="18" />
+      <polygon points="2956,1305 3825,1485 3825,1395 2956,1215" />
+      <use href="#E0A4" x="2956" y="720" height="720px" width="720px" />
+      <path d="M2965 748 L2965 1287" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="3807" y="900" height="720px" width="720px" />
+      <path d="M3816 928 L3816 1467" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="4439" y="630" height="720px" width="720px" />
+      <path d="M4656 602 L4656 120" stroke="currentColor" stroke-width="18" />
+      <use href="#E260" x="4252" y="630" height="720px" width="720px" />
+      <path d="M2619,855 C2741,962 2944,962 3069,855 C2965,1009 2720,1009 2619,855" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
+      <use href="#E4E4" x="1366" y="2295" height="720px" width="720px" />
+      <path d="M1318 2295 L1630 2295" stroke="currentColor" stroke-width="22" />
+      <use href="#E4E7" x="2956" y="1935" height="720px" width="720px" />
+      <polygon points="3487,1530 4349,1530 4349,1620 3487,1620" />
+      <polygon points="3487,1665 4024,1665 4024,1755 3487,1755" />
+      <polygon points="4024,1665 4349,1665 4349,1755 4024,1755" />
+      <use href="#E0A4" x="3279" y="2115" height="720px" width="720px" />
+      <path d="M3496 2087 L3496 1548" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="3807" y="2205" height="720px" width="720px" />
+      <path d="M4024 2177 L4024 1548" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="3595" y="2205" height="720px" width="720px" />
+      <use href="#E0A4" x="4123" y="2115" height="720px" width="720px" />
+      <path d="M4340 2087 L4340 1548" stroke="currentColor" stroke-width="18" />
+      <polygon points="4647,1845 5433,1665 5433,1755 4647,1935" />
+      <use href="#E0A4" x="4439" y="2475" height="720px" width="720px" />
+      <path d="M4656 2447 L4656 1845" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="5415" y="1080" height="720px" width="720px" />
+      <path d="M5424 1108 L5424 1755" stroke="currentColor" stroke-width="18" />
+      <path d="M3227,2520 C3523,2627 4095,2627 4394,2520 C4105,2675 3512,2675 3227,2520" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" />
+      <path d="M3231 2295 L3553 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M3777 2295 L4063 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M4093 2295 L4379 2295" stroke="currentColor" stroke-width="22" />
+      <path d="M3231 2115 L3553 2115" stroke="currentColor" stroke-width="22" />
+      <path d="M4093 2115 L4379 2115" stroke="currentColor" stroke-width="22" />
+      <use href="#E0A4" x="1366" y="2745" height="720px" width="720px" />
+      <path d="M1375 2773 L1375 3375" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="2056" y="2565" height="720px" width="720px" />
+      <path d="M2065 2593 L2065 3195" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="1870" y="2565" height="720px" width="720px" />
+      <use href="#E0A4" x="2956" y="2475" height="720px" width="720px" />
+      <path d="M2965 2503 L2965 3105" stroke="currentColor" stroke-width="18" />
+      <polygon points="4439,3240 5749,3240 5749,3150 4439,3150" />
+      <polygon points="4439,3105 4922,3105 4922,3015 4439,3015" />
+      <polygon points="4922,3105 5424,3105 5424,3015 4922,3015" />
+      <polygon points="5424,3105 5749,3105 5749,3015 5424,3015" />
+      <use href="#E0A4" x="4439" y="2475" height="720px" width="720px" />
+      <path d="M4448 2503 L4448 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E0A4" x="4913" y="2565" height="720px" width="720px" />
+      <path d="M4922 2593 L4922 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E261" x="4755" y="2565" height="720px" width="720px" />
+      <use href="#E0A4" x="5415" y="2655" height="720px" width="720px" />
+      <path d="M5424 2683 L5424 3222" stroke="currentColor" stroke-width="18" />
+      <use href="#E262" x="5229" y="2655" height="720px" width="720px" />
+      <use href="#E0A4" x="5731" y="2565" height="720px" width="720px" />
+      <path d="M5740 2593 L5740 3222" stroke="currentColor" stroke-width="18" />
+      </g>
+      <path d="M24244 540 L24244 1260" stroke="currentColor" stroke-width="27"/>
+      <path d="M24244 2475 L24244 3195" stroke="currentColor" stroke-width="27"/>
+      <path d="M24244 1260 L24244 2475" stroke="currentColor" stroke-width="27"/>
+      <!-- static tile 2: V1 -->
+      <path d="M6074,810 C6561,780 7061,790 7547,810" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M7547,810 C7811,1100 7961,1200 8237,1260" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M8237,1260 C8411,900 8511,780 8687,720" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M8687,720 C8861,680 8961,690 9137,720" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M9137,720 C9411,760 9711,870 9988,900" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M9988,900 C10211,820 10411,700 10620,630" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M10620,630 C11111,580 11661,600 12122,630" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <!-- static tile 3: V1 -->
+      <path d="M12135,810 C12622,780 13122,790 13608,810" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M13608,810 C13872,1100 14022,1200 14298,1260" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M14298,1260 C14472,900 14572,780 14748,720" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M14748,720 C14922,680 15022,690 15198,720" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M15198,720 C15472,760 15772,870 16049,900" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M16049,900 C16272,820 16472,700 16681,630" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M16681,630 C17172,580 17722,600 18183,630" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <!-- static tile 3: V2 entry + segs -->
+      <path d="M12122,630 C12422,630 13338,2295 13638,2295" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M13638,2295 C14172,2200 14722,1960 15198,1880" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M15198,1880 C15302,1960 15402,2060 15521,2115" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M15521,2115 C15702,2180 15872,2210 16049,2205" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M16049,2205 C16162,2180 16252,2150 16365,2115" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M16365,2115 C16472,2230 16552,2380 16681,2475" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M16681,2475 C16972,2200 17322,1200 17657,1080" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M17657,1080 C17842,1060 18022,1070 18183,1080" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <!-- static tile 4: V1 -->
+      <path d="M18196,810 C18683,780 19183,790 19669,810" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M19669,810 C19933,1100 20083,1200 20359,1260" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M20359,1260 C20533,900 20633,780 20809,720" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M20809,720 C20983,680 21083,690 21259,720" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M21259,720 C21533,760 21833,870 22110,900" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M22110,900 C22333,820 22533,700 22742,630" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M22742,630 C23233,580 23783,600 24244,630" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <!-- static tile 4: V2 entry + segs -->
+      <path d="M18183,630 C18483,630 19399,2295 19699,2295" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M19699,2295 C20233,2200 20783,1960 21259,1880" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M21259,1880 C21363,1960 21463,2060 21582,2115" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M21582,2115 C21763,2180 21933,2210 22110,2205" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M22110,2205 C22223,2180 22313,2150 22426,2115" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M22426,2115 C22533,2230 22613,2380 22742,2475" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M22742,2475 C23033,2200 23383,1200 23718,1080" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M23718,1080 C23903,1060 24083,1070 24244,1080" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <!-- static tile 4: V3 entry + segs -->
+      <path d="M18183,1080 C18483,1080 19369,2745 19669,2745" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M19669,2745 C19933,2700 20133,2620 20359,2565" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M20359,2565 C20683,2520 20983,2490 21259,2475" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M21259,2475 C21783,2440 22283,2450 22742,2475" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M22742,2475 C22903,2500 23053,2540 23216,2565" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M23216,2565 C23383,2620 23553,2650 23718,2655" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M23718,2655 C23823,2640 23923,2600 24034,2565" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <path d="M24034,2565 C24113,2560 24173,2562 24244,2565" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8"/>
+      <!-- animated dashed paths (clip-path growing) -->
+      <path d="M13,810 C500,780 1000,790 1486,810" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp0)"/>
+      <path d="M1486,810 C1750,1100 1900,1200 2176,1260" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp1)"/>
+      <path d="M2176,1260 C2350,900 2450,780 2626,720" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp2)"/>
+      <path d="M2626,720 C2800,680 2900,690 3076,720" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp3)"/>
+      <path d="M3076,720 C3350,760 3650,870 3927,900" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp4)"/>
+      <path d="M3927,900 C4150,820 4350,700 4559,630" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp5)"/>
+      <path d="M4559,630 C5050,580 5600,600 6061,630" stroke="#a93226" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp6)"/>
+      <path d="M6061,630 C6300,630 7300,2295 7577,2295" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp7)"/>
+      <path d="M7577,2295 C8111,2200 8661,1960 9137,1880" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp8)"/>
+      <path d="M9137,1880 C9241,1960 9341,2060 9460,2115" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp9)"/>
+      <path d="M9460,2115 C9641,2180 9811,2210 9988,2205" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp10)"/>
+      <path d="M9988,2205 C10101,2180 10191,2150 10304,2115" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp11)"/>
+      <path d="M10304,2115 C10411,2230 10491,2380 10620,2475" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp12)"/>
+      <path d="M10620,2475 C10911,2200 11261,1200 11596,1080" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp13)"/>
+      <path d="M11596,1080 C11781,1060 11961,1070 12122,1080" stroke="#1a5276" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp14)"/>
+      <path d="M12122,1080 C12400,1080 13300,2745 13608,2745" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp15)"/>
+      <path d="M13608,2745 C13872,2700 14072,2620 14298,2565" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp16)"/>
+      <path d="M14298,2565 C14622,2520 14922,2490 15198,2475" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp17)"/>
+      <path d="M15198,2475 C15722,2440 16222,2450 16681,2475" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp18)"/>
+      <path d="M16681,2475 C16842,2500 16992,2540 17155,2565" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp19)"/>
+      <path d="M17155,2565 C17322,2620 17492,2650 17657,2655" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp20)"/>
+      <path d="M17657,2655 C17762,2640 17862,2600 17973,2565" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp21)"/>
+      <path d="M17973,2565 C18052,2560 18112,2562 18183,2565" stroke="#196f3d" stroke-dasharray="80,50" stroke-width="36" fill="none" opacity="0.8" mask="url(#mp22)"/>
+      <!-- circles -->
+      <circle cx="1486" cy="810" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.070270" values="#999;#a93226" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="2176" cy="1260" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.110364" values="#999;#a93226" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="2626" cy="720" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.144864" values="#999;#a93226" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="3076" cy="720" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.166506" values="#999;#a93226" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="3927" cy="900" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.208011" values="#999;#a93226" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="4559" cy="630" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.240799" values="#999;#a93226" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="1516" cy="2295" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="3076" cy="1880" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="3399" cy="2115" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="3927" cy="2205" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="4243" cy="2115" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="4559" cy="2475" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="5535" cy="1080" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="1486" cy="2745" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="2176" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="3076" cy="2475" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="4559" cy="2475" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="5033" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="5535" cy="2655" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="5851" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="7547" cy="810" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="8237" cy="1260" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="8687" cy="720" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="9137" cy="720" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="9988" cy="900" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="10620" cy="630" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="7577" cy="2295" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.375000" values="#999;#1a5276" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="9137" cy="1880" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.464968" values="#999;#1a5276" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="9460" cy="2115" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.487274" values="#999;#1a5276" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="9988" cy="2205" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.517285" values="#999;#1a5276" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="10304" cy="2115" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.535590" values="#999;#1a5276" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="10620" cy="2475" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.562346" values="#999;#1a5276" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="11596" cy="1080" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.658168" values="#999;#1a5276" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="7547" cy="2745" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="8237" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="9137" cy="2475" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="10620" cy="2475" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="11094" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="11596" cy="2655" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="11912" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"/>
+      <circle cx="13608" cy="810" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="14298" cy="1260" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="14748" cy="720" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="15198" cy="720" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="16049" cy="900" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="16681" cy="630" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="13638" cy="2295" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="15198" cy="1880" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="15521" cy="2115" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="16049" cy="2205" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="16365" cy="2115" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="16681" cy="2475" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="17657" cy="1080" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="13608" cy="2745" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.750000" values="#999;#196f3d" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="14298" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.788479" values="#999;#196f3d" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="15198" cy="2475" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.837273" values="#999;#196f3d" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="16681" cy="2475" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.917302" values="#999;#196f3d" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="17155" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.943325" values="#999;#196f3d" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="17657" cy="2655" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.970925" values="#999;#196f3d" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="17973" cy="2565" r="130" fill="none" stroke="#999" stroke-width="42"><animate attributeName="stroke" calcMode="discrete" keyTimes="0;0.988668" values="#999;#196f3d" dur="8.0s" repeatCount="indefinite"/></circle>
+      <circle cx="19669" cy="810" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="20359" cy="1260" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="20809" cy="720" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="21259" cy="720" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="22110" cy="900" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="22742" cy="630" r="130" fill="none" stroke="#a93226" stroke-width="42"/>
+      <circle cx="19699" cy="2295" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="21259" cy="1880" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="21582" cy="2115" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="22110" cy="2205" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="22426" cy="2115" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="22742" cy="2475" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="23718" cy="1080" r="130" fill="none" stroke="#1a5276" stroke-width="42"/>
+      <circle cx="19669" cy="2745" r="130" fill="none" stroke="#196f3d" stroke-width="42"/>
+      <circle cx="20359" cy="2565" r="130" fill="none" stroke="#196f3d" stroke-width="42"/>
+      <circle cx="21259" cy="2475" r="130" fill="none" stroke="#196f3d" stroke-width="42"/>
+      <circle cx="22742" cy="2475" r="130" fill="none" stroke="#196f3d" stroke-width="42"/>
+      <circle cx="23216" cy="2565" r="130" fill="none" stroke="#196f3d" stroke-width="42"/>
+      <circle cx="23718" cy="2655" r="130" fill="none" stroke="#196f3d" stroke-width="42"/>
+      <circle cx="24034" cy="2565" r="130" fill="none" stroke="#196f3d" stroke-width="42"/>
+      <!-- arrowhead -->
+      <g>
+        <polygon points="0,0 -80,40 -80,-40" fill="#a93226">
+          <animate attributeName="fill" calcMode="discrete"
+                   keyTimes="0;0.312500;0.687500"
+                   values="#a93226;#1a5276;#196f3d"
+                   dur="8.0s" repeatCount="indefinite"/>
+        </polygon>
+        <animateMotion dur="8.0s" repeatCount="indefinite" rotate="auto"
+                       calcMode="linear"
+                       keyTimes="0;0.070270;0.110364;0.144864;0.166506;0.208011;0.240799;0.312500;0.375000;0.464968;0.487274;0.517285;0.535590;0.562346;0.658168;0.687500;0.750000;0.788479;0.837273;0.917302;0.943325;0.970925;0.988668;1.000000"
+                       keyPoints="0.000000;0.069055;0.108456;0.142360;0.163628;0.204416;0.236636;0.307098;0.413799;0.489496;0.508265;0.533515;0.548917;0.571429;0.652052;0.676732;0.782778;0.816212;0.858609;0.928145;0.950756;0.974737;0.990154;1.000000">
+          <mpath href="#full-anim-path"/>
+        </animateMotion>
+      </g>
+      </g>
+      </g>
+   </svg>
+</svg>

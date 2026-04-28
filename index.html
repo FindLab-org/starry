@@ -72,16 +72,57 @@
         </section>
 
         <section class="stack">
-          <article class="card media-card">
-            <figure class="figure-block">
-              <img src="assets/figures/figure-9-beadpicker-arch.svg" alt="BeadPicker Transformer architecture for topology recognition." />
-            </figure>
-            <div class="media-copy">
-              <p class="section-kicker">BeadPicker Architecture</p>
-              <p>
-                The topology model reads measure-level candidates together with geometry, local attribute hints, and prefix context, then predicts successor probabilities and related fields used by the solver.
-              </p>
+          <article class="card section-card">
+            <h2>BeadSolver</h2>
+            <p>
+              BeadSolver treats measure-level decoding as a topology problem. Instead of asking the system to predict a complete polyphonic structure in one shot, it incrementally builds voice chains among event candidates and checks whether the resulting measure becomes globally coherent in time.
+            </p>
+            <p>
+              The key idea is to separate local evidence from structural commitment. The model estimates which continuation is plausible at each step, while the solver keeps multiple possibilities alive long enough to compare their consequences at the measure level.
+            </p>
+
+            <div class="figure-pair">
+              <figure class="figure-block section-figure">
+                <img src="assets/figures/voice-chains-a.svg" alt="Voice chains as a topology view over event candidates." />
+                <figcaption>
+                  <span class="caption-title">Voice chains as topology.</span>
+                  Events are linked into ordered voice-wise chains. In this view, the main question is not only which symbols were detected, but how they continue across the measure and how different voices interleave.
+                </figcaption>
+              </figure>
+
+              <figure class="figure-block section-figure">
+                <img src="assets/figures/voice-chains-b.svg" alt="From chained topology to time-consistent measure structure." />
+                <figcaption>
+                  <span class="caption-title">From topology to timing.</span>
+                  Once a candidate chain structure is fixed, the solver can derive ticks, durations, and voice-wise timelines, and reject solutions that do not yield a coherent measure-level interpretation.
+                </figcaption>
+              </figure>
             </div>
+
+            <h3>How BeadSolver Becomes an MDP</h3>
+            <p>
+              How can structure decoding across multiple voices be formulated as a Markov decision process? One useful intuition is to treat each barline as a space-time portal: the solver may finish one voice, jump through the barline, and continue from the beginning of another voice, while keeping the global measure structure consistent.
+            </p>
+            <figure class="figure-block section-figure">
+              <img class="anim-narrow" src="assets/figures/fig-5-b-anim.svg" alt="Animated intuition for multi-voice structure decoding as an MDP with barlines acting like space-time portals." />
+              <figcaption>
+                <span class="caption-title">Barlines as space-time portals.</span>
+                The animated path shows how decoding can move across voices while still building one coherent measure-level topology.
+              </figcaption>
+            </figure>
+
+            <h3>BeadPicker</h3>
+            <p>
+              BeadPicker is the learned model inside the solver. At each step, it reads the current measure candidates together with the committed prefix, then estimates which continuation is plausible and provides the local attribute hints that guide search without deciding the final structure on its own.
+            </p>
+            <figure class="figure-block section-figure">
+              <img src="assets/figures/figure-9-beadpicker-arch.svg" alt="BeadPicker Transformer architecture for topology recognition." />
+              <figcaption>
+                <span class="caption-title">BeadPicker architecture.</span>
+                The model reads measure-level candidates, geometry, local hints, and prefix context, and produces successor probabilities and related fields used by the solver.
+              </figcaption>
+            </figure>
+
           </article>
         </section>
       </main>
