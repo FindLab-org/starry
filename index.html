@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   </head>
   <body>
     <div class="page-shell">
@@ -37,19 +38,40 @@
           </p>
         </section>
 
-        <section class="stack">
-          <article class="card media-card">
-            <figure class="figure-block">
-              <img src="assets/figures/figure-2-cv-pipeline.svg" alt="Visual pipeline for candidate generation in the Starry OMR system." />
-            </figure>
-            <div class="media-copy">
-              <p class="section-kicker">Visual Pipeline</p>
-              <p>
-                The system first produces robust local evidence: layout and staff processing, semantic heatmaps, OCR, and measure-level candidate assembly. Global score structure is deferred to the decoding stage.
-              </p>
-            </div>
-          </article>
+        <section class="card section-card">
+          <h2>System Overview</h2>
+          <p>
+            Starry treats OMR as a staged transformation from images to editable music structure. The visual system operates at per-page and per-staff levels to produce event candidates, regulation then resolves measure-level topology into a serialized representation, and the final translation stage exports standard music-language formats.
+          </p>
 
+          <div class="figure-stack">
+            <figure class="figure-block section-figure">
+              <img src="assets/figures/starry-overview.svg" alt="System overview of the Starry pipeline from images to music-language formats." />
+              <figcaption>
+                <span class="caption-title">Starry overview.</span>
+                A compact overview of the full pipeline, from images through visual candidate generation and regulation to downstream music-language formats.
+              </figcaption>
+            </figure>
+
+            <figure class="figure-block section-figure">
+              <img src="assets/figures/figure-2-cv-pipeline.svg" alt="Visual pipeline for candidate generation in the Starry OMR system." />
+              <figcaption>
+                <span class="caption-title">Visual pipeline.</span>
+                The system first produces robust local evidence with layout analysis, staff processing, semantic heatmaps, OCR, and candidate assembly before any global structural commitment is made.
+              </figcaption>
+            </figure>
+
+            <figure class="figure-block section-figure">
+              <img src="assets/figures/assembly-main.svg" alt="Assembly flow from semantic recognition to measure-level event candidates." />
+              <figcaption>
+                <span class="caption-title">Assembly.</span>
+                Local semantic detections are grouped into measure-level event candidates, with attributes derived from geometric measurements and confidence cues from the recognition stage.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="stack">
           <article class="card media-card">
             <figure class="figure-block">
               <img src="assets/figures/figure-9-beadpicker-arch.svg" alt="BeadPicker Transformer architecture for topology recognition." />
