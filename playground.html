@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starry Playground</title>
+    <meta name="description" content="Minimal score playground for Starry score.json playback and score viewing." />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/score-viewer/playground.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <script src="assets/vendor/musicWidgetsBrowser.umd.js" defer></script>
+    <script src="assets/score-viewer/playground.js" defer></script>
+  </head>
+  <body class="viewer-body">
+    <div class="page-shell viewer-shell">
+      <main class="viewer-main">
+        <section class="card viewer-controls">
+          <div class="viewer-toolbar">
+            <button id="play-toggle" type="button" disabled>Play</button>
+            <label class="toggle-field"><input id="original-toggle" type="checkbox" /> Original image</label>
+            <span id="tempo-label" class="viewer-meta">Tempo: -- bpm</span>
+          </div>
+          <div class="viewer-url-row">
+            <label for="score-url">Score URL</label>
+            <input id="score-url" type="text" readonly />
+          </div>
+          <p id="viewer-status" class="viewer-status">Waiting for a hash URL.</p>
+        </section>
+
+        <section class="card viewer-stage-card">
+          <svg class="viewer-defs" width="0" height="0" aria-hidden="true" focusable="false">
+            <defs class="score-token-defs">
+              <g class="token" id="score-token-def-noteheads-s0"><text x="-0.913">&#xE0A7;</text></g>
+              <g class="token" id="score-token-def-noteheads-s1"><text x="-0.632">&#xE0A8;</text></g>
+              <g class="token" id="score-token-def-noteheads-s2"><text x="-0.599">&#xE0A9;</text></g>
+              <g class="token" id="score-token-def-noteheads-s1-u"><text x="-1.264">&#xE0A8;</text><line class="stem" x1="0" x2="0" y1="-0.06" y2="-3.5" /></g>
+              <g class="token" id="score-token-def-noteheads-s2-u"><text x="-1.198">&#xE0A9;</text><line class="stem" x1="0" x2="0" y1="-0.06" y2="-3.5" /></g>
+              <g class="token" id="score-token-def-noteheads-s1-d"><text>&#xE0A8;</text><line class="stem" x1="0" x2="0" y1="0.16" y2="3.5" /></g>
+              <g class="token" id="score-token-def-noteheads-s2-d"><text>&#xE0A9;</text><line class="stem" x1="0" x2="0" y1="0.16" y2="3.5" /></g>
+            </defs>
+          </svg>
+          <div id="score-stage" class="score-stage"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

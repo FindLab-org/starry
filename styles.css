@@ -203,6 +203,23 @@ main {
   margin: 0 auto;
 }
 
+.playground-embed {
+  margin-top: 18px;
+  border: 1px solid rgba(60, 52, 43, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  overflow: hidden;
+}
+
+.playground-embed iframe {
+  display: block;
+  width: 100%;
+  height: min(78vh, 760px);
+  min-height: 520px;
+  border: 0;
+}
+
 .figure-block figcaption {
   margin-top: 12px;
   font-size: 0.98rem;

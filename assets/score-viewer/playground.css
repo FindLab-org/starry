@@ -1,0 +1,146 @@
+@font-face {
+  font-family: "Emmentaler-26";
+  src: url("../music-fonts/emmentaler-26.woff") format("woff");
+  font-display: swap;
+}
+
+.viewer-body {
+  min-height: 100vh;
+}
+
+.viewer-shell {
+  width: min(1320px, calc(100vw - 28px));
+}
+
+.viewer-hero {
+  margin-bottom: 20px;
+}
+
+.viewer-main {
+  display: grid;
+  gap: 18px;
+}
+
+.viewer-controls {
+  display: grid;
+  gap: 14px;
+}
+
+.viewer-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.viewer-toolbar button {
+  border: 1px solid rgba(31, 35, 40, 0.22);
+  border-radius: 999px;
+  background: #1f2328;
+  color: #f8f4ec;
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.viewer-toolbar button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.viewer-meta,
+.viewer-status,
+.toggle-field,
+.viewer-url-row label {
+  color: var(--muted);
+}
+
+.viewer-url-row {
+  display: grid;
+  gap: 8px;
+}
+
+.viewer-url-row input {
+  width: 100%;
+  border: 1px solid rgba(31, 35, 40, 0.14);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.82);
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--ink);
+}
+
+.viewer-stage-card {
+  padding: 16px;
+}
+
+.score-stage {
+  display: grid;
+  gap: 18px;
+}
+
+.score-page {
+  border: 1px solid rgba(60, 52, 43, 0.08);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.74);
+  padding: 14px;
+  overflow: auto;
+}
+
+.score-page svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.score-system .pad {
+  fill: transparent;
+}
+
+.score-staff-lines line,
+.score-measure-bars line {
+  stroke: rgba(74, 68, 61, 0.75);
+  stroke-width: 0.1;
+}
+
+.score-notehead {
+  fill: rgba(18, 20, 24, 0.96);
+  color: rgba(18, 20, 24, 0.96);
+}
+
+.score-notehead.on {
+  fill: #3398ff;
+  color: #3398ff;
+}
+
+.score-notehead use {
+  pointer-events: none;
+}
+
+.score-source {
+  image-rendering: auto;
+}
+
+.score-token-defs text {
+  font-family: "Emmentaler-26";
+  font-size: 4px;
+  fill: inherit;
+}
+
+.score-token-defs .stem {
+  stroke: currentColor;
+  stroke-width: 0.12;
+  stroke-linecap: round;
+}
+
+@media (max-width: 760px) {
+  .viewer-shell {
+    width: min(100vw - 18px, 1320px);
+  }
+
+  .viewer-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
