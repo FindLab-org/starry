@@ -73,10 +73,22 @@
 
         <section class="stack">
           <article class="card section-card">
-            <h2>BeadSolver</h2>
+            <h2>The Regulation Method: BeadSolver</h2>
             <p>
               BeadSolver treats measure-level decoding as a topology problem. Instead of asking the system to predict a complete polyphonic structure in one shot, it incrementally builds voice chains among event candidates and checks whether the resulting measure becomes globally coherent in time.
             </p>
+
+            <div class="voice-target-flow" aria-label="Regulation target: raw measure to voice structure">
+              <figure class="voice-target-item">
+                <img src="assets/figures/regulation-input.jpg" alt="Raw measure with severe voice ambiguity." />
+                <figcaption>Raw ambiguous measure</figcaption>
+              </figure>
+              <div class="voice-target-arrow" aria-hidden="true">&#x279C;</div>
+              <figure class="voice-target-item">
+                <img src="assets/figures/regulation-output.svg" alt="Target voice structure after regulation." />
+                <figcaption>Regulated voice structure</figcaption>
+              </figure>
+            </div>
             <p>
               The key idea is to separate local evidence from structural commitment. The model estimates which continuation is plausible at each step, while the solver keeps multiple possibilities alive long enough to compare their consequences at the measure level.
             </p>
@@ -111,6 +123,46 @@
               </figcaption>
             </figure>
 
+            <h3>Searching Visualization</h3>
+            <p>
+              The following examples visualize how different solvers explore measure-level topology candidates and converge to coherent voice structures.
+              Click a image to play animation.
+            </p>
+            <div class="solver-gallery" aria-label="Solver searching visualizations">
+              <figure class="figure-block solver-figure">
+                <figcaption>Chopin Op. 10 No. 3, m. 57.</figcaption>
+                <button class="solver-player" type="button" aria-label="Play Chopin Op. 10 No. 3 measure 57 search animation">
+                  <object data="assets/figures/solvers/chopin-10-3-m57-viz.svg" type="image/svg+xml" aria-label="Search visualization for Chopin Op. 10 No. 3, measure 57."></object>
+                  <span class="solver-play-button" aria-hidden="true"></span>
+                  <span class="solver-pause-button" aria-hidden="true"></span>
+                </button>
+              </figure>
+              <figure class="figure-block solver-figure">
+                <figcaption>Chopin Op. 25 No. 5, m. 90.</figcaption>
+                <button class="solver-player" type="button" aria-label="Play Chopin Op. 25 No. 5 measure 90 search animation">
+                  <object data="assets/figures/solvers/chopin-25-5-m90-viz.svg" type="image/svg+xml" aria-label="Search visualization for Chopin Op. 25 No. 5, measure 90."></object>
+                  <span class="solver-play-button" aria-hidden="true"></span>
+                  <span class="solver-pause-button" aria-hidden="true"></span>
+                </button>
+              </figure>
+              <figure class="figure-block solver-figure">
+                <figcaption>Chopin Op. 25 No. 3, m. 14.</figcaption>
+                <button class="solver-player" type="button" aria-label="Play Chopin Op. 25 No. 3 measure 14 search animation">
+                  <object data="assets/figures/solvers/chopin-25-3-m14-viz.svg" type="image/svg+xml" aria-label="Search visualization for Chopin Op. 25 No. 3, measure 14."></object>
+                  <span class="solver-play-button" aria-hidden="true"></span>
+                  <span class="solver-pause-button" aria-hidden="true"></span>
+                </button>
+              </figure>
+              <figure class="figure-block solver-figure">
+                <figcaption>Shanyue, m. 12.</figcaption>
+                <button class="solver-player" type="button" aria-label="Play Shanyue measure 12 search animation">
+                  <object data="assets/figures/solvers/shanyue-m12-viz.svg" type="image/svg+xml" aria-label="Search visualization for Shanyue, measure 12."></object>
+                  <span class="solver-play-button" aria-hidden="true"></span>
+                  <span class="solver-pause-button" aria-hidden="true"></span>
+                </button>
+              </figure>
+            </div>
+
             <h3>BeadPicker</h3>
             <p>
               BeadPicker is the learned model inside the solver. At each step, it reads the current measure candidates together with the committed prefix, then estimates which continuation is plausible and provides the local attribute hints that guide search without deciding the final structure on its own.
@@ -125,7 +177,49 @@
 
           </article>
         </section>
+
+        <!--section class="card section-card">
+          <h2>Show Cases</h2>
+          <p>
+            The playground below loads a real Starry recognition footage and renders the decoded symbolic structure directly in the browser. It is intentionally lightweight: the embedded view focuses on score inspection, with the original-image toggle available for comparing decoded notation against visual evidence.
+          </p>
+          <div class="playground-embed" role="region" aria-label="Embedded Starry score playground">
+            <iframe
+              title="Starry score playground with recognition footage"
+              src="playground.html#footages/1777468407378.json"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </section-->
       </main>
     </div>
+    <script>
+      document.querySelectorAll('.solver-player').forEach((player) => {
+        const object = player.querySelector('object');
+
+        const pauseAtStart = () => {
+          const svg = object.contentDocument?.documentElement;
+          if (!svg) return;
+          svg.setCurrentTime?.(0);
+          svg.pauseAnimations?.();
+        };
+
+        object.addEventListener('load', pauseAtStart);
+        pauseAtStart();
+
+        player.addEventListener('click', () => {
+          const svg = object.contentDocument?.documentElement;
+          if (!svg) return;
+
+          if (player.classList.toggle('is-playing')) {
+            svg.setCurrentTime?.(0);
+            svg.unpauseAnimations?.();
+          } else {
+            svg.setCurrentTime?.(0);
+            svg.pauseAnimations?.();
+          }
+        });
+      });
+    </script>
   </body>
 </html>

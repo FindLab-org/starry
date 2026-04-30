@@ -203,6 +203,180 @@ main {
   margin: 0 auto;
 }
 
+.voice-target-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 18px 0;
+}
+
+.voice-target-item {
+  flex: 1 1 0;
+  margin: 0;
+  text-align: center;
+}
+
+.voice-target-item img,
+.voice-target-item iframe {
+  display: block;
+  width: 100%;
+  height: 260px;
+  border: 0;
+  object-fit: contain;
+}
+
+.voice-target-item figcaption {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.voice-target-arrow {
+  flex: 0 0 auto;
+  color: var(--accent-strong);
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.solver-gallery {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.solver-figure {
+  display: inline-block;
+  width: 40%;
+  margin: 0 18px 14px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+  vertical-align: top;
+  text-align: left;
+}
+
+.solver-figure:nth-child(2n) {
+  margin-right: 18px;
+}
+
+.solver-figure img {
+  max-height: none;
+}
+
+.solver-figure figcaption {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.solver-player {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: outline-color 160ms ease, box-shadow 160ms ease;
+}
+
+.solver-player.is-playing {
+  outline: 2px solid rgba(91, 169, 229, 0.58);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px rgba(91, 169, 229, 0.1);
+}
+
+.solver-player object {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.solver-play-button,
+.solver-pause-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: rgba(91, 169, 229, 0.28);
+  box-shadow: 0 4px 18px rgba(66, 132, 184, 0.26);
+  backdrop-filter: blur(2px);
+  opacity: 0.72;
+  transform: translate(-50%, -50%);
+  transition: opacity 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.solver-play-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 18px solid rgba(255, 255, 255, 0.96);
+  transform: translate(-50%, -50%);
+}
+
+.solver-pause-button {
+  display: none;
+  opacity: 0;
+}
+
+.solver-pause-button::before,
+.solver-pause-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 24px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.96);
+  transform: translateY(-50%);
+}
+
+.solver-pause-button::before {
+  left: 18px;
+}
+
+.solver-pause-button::after {
+  right: 18px;
+}
+
+.solver-player:hover .solver-play-button,
+.solver-player:focus-visible .solver-play-button,
+.solver-player:hover .solver-pause-button,
+.solver-player:focus-visible .solver-pause-button {
+  background: rgba(91, 169, 229, 0.46);
+  box-shadow: 0 6px 22px rgba(66, 132, 184, 0.38);
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.solver-player:focus-visible {
+  outline: 2px solid rgba(91, 169, 229, 0.8);
+  outline-offset: 4px;
+}
+
+.solver-player.is-playing .solver-play-button {
+  display: none;
+}
+
+.solver-player.is-playing:hover .solver-pause-button,
+.solver-player.is-playing:focus-visible .solver-pause-button {
+  display: block;
+}
+
 .playground-embed {
   margin-top: 18px;
   border: 1px solid rgba(60, 52, 43, 0.12);
@@ -258,8 +432,32 @@ p {
     padding-top: 36px;
   }
 
+  .voice-target-flow {
+    flex-direction: column;
+  }
+
+  .voice-target-arrow {
+    transform: rotate(90deg);
+  }
+
+  .voice-target-item {
+    width: 100%;
+  }
+
+  .voice-target-item img,
+  .voice-target-item iframe {
+    height: auto;
+    min-height: 220px;
+  }
+
   .figure-pair {
     grid-template-columns: 1fr;
+  }
+
+  .solver-figure {
+    display: inline-block;
+    width: 100%;
+    margin-right: 0;
   }
 
   .card {
