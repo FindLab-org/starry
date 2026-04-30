@@ -6,24 +6,28 @@
 
 .viewer-body {
   min-height: 100vh;
+  overflow: hidden;
+  background: #f0f2f5;
 }
 
-.viewer-shell {
-  width: min(1320px, calc(100vw - 28px));
+.live-score-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: #f0f2f5;
 }
 
-.viewer-hero {
-  margin-bottom: 20px;
-}
-
-.viewer-main {
+.live-score-controls {
+  flex: 0 0 auto;
+  z-index: 10;
   display: grid;
-  gap: 18px;
-}
-
-.viewer-controls {
-  display: grid;
-  gap: 14px;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .viewer-toolbar {
@@ -35,10 +39,10 @@
 
 .viewer-toolbar button {
   border: 1px solid rgba(31, 35, 40, 0.22);
-  border-radius: 999px;
-  background: #1f2328;
-  color: #f8f4ec;
-  padding: 10px 18px;
+  border-radius: 6px;
+  background: #1677ff;
+  color: #fff;
+  padding: 8px 16px;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -53,73 +57,119 @@
 .viewer-status,
 .toggle-field,
 .viewer-url-row label {
-  color: var(--muted);
+  color: #6a6257;
+}
+
+.viewer-status {
+  margin-left: auto;
 }
 
 .viewer-url-row {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .viewer-url-row input {
   width: 100%;
   border: 1px solid rgba(31, 35, 40, 0.14);
-  border-radius: 12px;
-  background: rgba(255,255,255,0.82);
-  padding: 12px 14px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 8px 10px;
   font: inherit;
-  color: var(--ink);
+  color: #1f2328;
 }
 
-.viewer-stage-card {
-  padding: 16px;
+.live-score-stage-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #d9d9d9;
 }
 
-.score-stage {
-  display: grid;
-  gap: 18px;
+.live-score-stage {
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
-.score-page {
-  border: 1px solid rgba(60, 52, 43, 0.08);
-  border-radius: 18px;
-  background: rgba(255,255,255,0.74);
-  padding: 14px;
-  overflow: auto;
+.live-score-pages {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  width: max-content;
+  height: 100%;
+  min-width: 100%;
 }
 
-.score-page svg {
+.live-score-page-frame {
+  flex: 0 0 auto;
+  height: 100%;
+}
+
+.live-score-page {
   display: block;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
+  margin: 0;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  color: #111;
 }
 
-.score-system .pad {
+.live-score-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #888;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.live-score-staff line {
+  stroke: currentColor;
+  stroke-width: 0.08px;
+}
+
+.live-score-system-hit {
   fill: transparent;
+  cursor: pointer;
 }
 
-.score-staff-lines line,
-.score-measure-bars line {
-  stroke: rgba(74, 68, 61, 0.75);
-  stroke-width: 0.1;
+.live-score-system .bar,
+.live-score-system .connection {
+  stroke: currentColor;
+  stroke-width: 0.12px;
 }
 
-.score-notehead {
-  fill: rgba(18, 20, 24, 0.96);
-  color: rgba(18, 20, 24, 0.96);
+.live-score-system .staff-layout-measure-bar.dashed {
+  stroke-dasharray: 0.3 0.3;
 }
 
-.score-notehead.on {
-  fill: #3398ff;
-  color: #3398ff;
+.live-score-system .staff-layout-measure-bar.blank {
+  stroke-width: 0;
 }
 
-.score-notehead use {
+.live-score-system .cursor {
+  stroke: #1677ff;
+  stroke-width: 0.35px;
   pointer-events: none;
 }
 
-.score-source {
-  image-rendering: auto;
+.live-score-page use {
+  fill: currentColor;
+  color: currentColor;
+}
+
+.live-score-page .notePlayOn,
+.score-notehead.on {
+  color: #f5222d;
+  fill: #f5222d;
 }
 
 .score-token-defs text {
@@ -134,13 +184,32 @@
   stroke-linecap: round;
 }
 
+.viewer-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 @media (max-width: 760px) {
-  .viewer-shell {
-    width: min(100vw - 18px, 1320px);
+  .live-score-viewer {
+    padding: 10px;
+  }
+
+  .live-score-controls {
+    margin-bottom: 10px;
   }
 
   .viewer-toolbar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .viewer-status {
+    margin-left: 0;
+  }
+
+  .live-score-stage {
+    padding: 12px;
   }
 }

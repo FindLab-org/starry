@@ -8,16 +8,19 @@
   const originalToggle = document.getElementById("original-toggle");
 
   const SVG_NS = "http://www.w3.org/2000/svg";
-  const DEFAULT_SOUNDFONT_URL = "https://huggingface.co/spaces/k-l-lambda/starry/resolve/main/soundfont/";
-  const NOTEHEAD_PREFIX = "noteheads-";
+  const DEFAULT_SOUNDFONT_URL = "assets/soundfont/";
 
   const state = {
-    score: null,
+    liveScore: null,
     player: null,
     audioReady: false,
     scheduledTasks: new Set(),
     tokenElements: new Map(),
     scoreId: 0,
+    scheduler: null,
+    cursor: null,
+    pageFrames: [],
+    activePage: null,
   };
 
   function setStatus(text) {
@@ -26,13 +29,11 @@
 
   function parseHashUrl() {
     const raw = window.location.hash.slice(1).trim();
-    if (!raw)
-      return "";
+    if (!raw) return "";
 
     const params = new URLSearchParams(raw);
     const urlParam = params.get("url");
-    if (urlParam)
-      return urlParam;
+    if (urlParam) return urlParam;
 
     try {
       return decodeURIComponent(raw);
@@ -47,32 +48,33 @@
     return query.get("soundfont") || DEFAULT_SOUNDFONT_URL;
   }
 
-  function clearScheduledTasks() {
-    for (const id of state.scheduledTasks)
-      window.clearTimeout(id);
-    state.scheduledTasks.clear();
-  }
-
   function setPlayingUi(isPlaying) {
     playToggle.textContent = isPlaying ? "Pause" : "Play";
   }
 
-  function clearHighlights() {
-    for (const elements of state.tokenElements.values())
-      elements.forEach(element => element.classList.remove("on"));
+  function clearScheduledTasks() {
+    for (const id of state.scheduledTasks) window.clearTimeout(id);
+    state.scheduledTasks.clear();
   }
 
-  function setTokenHighlight(ids, enabled) {
-    if (!Array.isArray(ids))
-      return;
+  function clearHighlights() {
+    document.querySelectorAll(".notePlayOn").forEach(element => element.classList.remove("notePlayOn"));
+  }
 
-    for (const id of ids) {
-      const elements = state.tokenElements.get(id);
-      if (!elements)
-        continue;
+  function resetPlayer() {
+    clearScheduledTasks();
+    clearHighlights();
 
-      elements.forEach(element => element.classList.toggle("on", enabled));
+    if (state.player) {
+      state.player.pause();
+      state.player = null;
     }
+
+    if (widgets?.MidiAudio?.stopAllNotes) widgets.MidiAudio.stopAllNotes();
+    state.cursor = null;
+    state.scheduler = null;
+    setPlayingUi(false);
+    playToggle.disabled = true;
   }
 
   function scheduleAt(timestamp, task) {
@@ -87,175 +89,364 @@
   function createSvgNode(name, attrs = {}) {
     const node = document.createElementNS(SVG_NS, name);
     for (const [key, value] of Object.entries(attrs)) {
-      if (value === undefined || value === null)
-        continue;
+      if (value === undefined || value === null) continue;
       node.setAttribute(key, String(value));
     }
     return node;
   }
 
-  function renderOriginalPage(page) {
-    const svg = createSvgNode("svg", {
-      viewBox: `0 0 ${page.width} ${page.height}`,
-      role: "img",
-      "aria-label": "Original score page",
-    });
-
-    if (!page.source || !page.source.url)
-      return svg;
-
-    const group = createSvgNode("g", {
-      transform: `translate(${page.width / 2} ${page.height / 2})`,
-    });
-
-    const { source } = page;
-    const width = source.dimensions.width / source.interval;
-    const height = source.dimensions.height / source.interval;
-
-    const image = createSvgNode("image", {
-      href: source.url,
-      class: "score-source",
-      transform: Array.isArray(source.matrix) ? `matrix(${source.matrix.join(" ")})` : undefined,
-      x: -width / 2,
-      y: -height / 2,
-      width,
-      height,
-    });
-
-    group.appendChild(image);
-    svg.appendChild(group);
-    return svg;
+  function createNode(name, attrs = {}) {
+    const node = document.createElement(name);
+    for (const [key, value] of Object.entries(attrs)) {
+      if (value === undefined || value === null) continue;
+      if (key === "class") node.className = value;
+      else node.setAttribute(key, String(value));
+    }
+    return node;
   }
 
-  function appendStaffLines(parent, staffY, width) {
-    const lines = createSvgNode("g", {
-      class: "score-staff-lines",
-      transform: `translate(0 ${staffY})`,
-    });
-
-    [-2, -1, 0, 1, 2].forEach(y => {
-      lines.appendChild(createSvgNode("line", { x1: 0, x2: width, y1: y, y2: y }));
-    });
-
-    parent.appendChild(lines);
+  function validateLiveScore(data) {
+    if (data?.format !== "LiveScore" || data?.version !== 1 || !Array.isArray(data?.pages)) {
+      throw new Error("Invalid LiveScore data.");
+    }
+    return data;
   }
 
-  function appendMeasureBars(parent, measureBars, staffY) {
-    const bars = createSvgNode("g", { class: "score-measure-bars" });
-    (measureBars || []).forEach(x => {
-      const group = createSvgNode("g", { transform: `translate(${x} ${staffY})` });
-      group.appendChild(createSvgNode("line", { x1: 0, x2: 0, y1: -2, y2: 2 }));
-      bars.appendChild(group);
-    });
-    parent.appendChild(bars);
+  async function loadLiveScoreFromResponse(response) {
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return validateLiveScore(await response.json());
   }
 
-  function renderMeasureTokens(parent, staff) {
-    const layer = createSvgNode("g", {
-      class: "score-measure-tokens",
-      transform: `translate(0 ${staff.staffY})`,
-    });
+  function eventSubtype(type) {
+    switch (type) {
+      case "program": return "programChange";
+      case "note-on": return "noteOn";
+      case "note-off": return "noteOff";
+      case "control": return "controller";
+      case "pitch-bend": return "pitchBend";
+      case "aftertouch": return "channelAftertouch";
+      default: return type;
+    }
+  }
 
+  function buildMidiNotation(playback) {
+    if (!playback?.events?.length || !widgets?.MusicNotation?.Notation?.parseMidi) return null;
+
+    const trackCount = Math.max(1, ...playback.events.map(event => Number.isFinite(event.track) ? event.track + 1 : 1));
+    const tracks = Array.from({ length: trackCount }, () => []);
+
+    for (const event of playback.events) {
+      const trackIndex = Number.isFinite(event.track) ? event.track : 0;
+      tracks[trackIndex].push({
+        ticks: event.tick,
+        type: "channel",
+        subtype: eventSubtype(event.type),
+        ...(Number.isFinite(event.channel) ? { channel: event.channel } : {}),
+        ...(Number.isFinite(event.note) ? { noteNumber: event.note } : {}),
+        ...(Number.isFinite(event.velocity) ? { velocity: event.velocity } : {}),
+        ...(Number.isFinite(event.program) ? { programNumber: event.program } : {}),
+        ...(Number.isFinite(event.controller) ? { controllerType: event.controller } : {}),
+        ...(Number.isFinite(event.value) ? { value: event.value } : {}),
+        ...(event.ids?.length ? { ids: event.ids.map(String) } : {}),
+      });
+    }
+
+    for (const tempo of playback.tempos || []) {
+      tracks[0].push({ ticks: tempo.tick, type: "meta", subtype: "setTempo", microsecondsPerBeat: tempo.tempo });
+    }
+
+    for (const track of tracks) {
+      track.sort((a, b) => a.ticks - b.ticks || (a.subtype === "noteOff" ? -1 : 0));
+      let tick = 0;
+      for (const event of track) {
+        event.deltaTime = Math.max(event.ticks - tick, 0);
+        tick = event.ticks;
+      }
+      track.push({ deltaTime: Math.max((playback.endTick || tick) - tick, 0), type: "meta", subtype: "endOfTrack" });
+    }
+
+    const notation = widgets.MusicNotation.Notation.parseMidi({
+      header: { formatType: 1, ticksPerBeat: playback.ticksPerBeat || 480 },
+      tracks,
+    });
+    notation.measures = playback.measures?.map(measure => ({ index: measure.i, startTick: measure.t1, endTick: measure.t2 }));
+    return notation;
+  }
+
+  function buildTokenMap(liveScore) {
+    const tokenMap = new Map();
+    const positions = liveScore?.playback?.positions;
+    if (positions?.length) {
+      for (const position of positions) {
+        tokenMap.set(String(position.id), {
+          system: position.system,
+          measure: position.measure,
+          x: position.x,
+          endX: position.endX,
+        });
+      }
+      return tokenMap;
+    }
+
+    (liveScore?.pages || []).forEach((page, pageIndex) => {
+      (page.systems || []).forEach((system, systemIndex) => {
+        const systemKey = systemGlobalIndex(liveScore, pageIndex, systemIndex);
+        (system.staves || []).forEach(staff => {
+          (staff.measures || []).forEach((measure, measureIndex) => {
+            const endX = system.bars?.[measureIndex] ?? system.w;
+            (measure.tokens || []).forEach(token => {
+              if (token.id === undefined || token.id === null) return;
+              tokenMap.set(String(token.id), { system: systemKey, measure: measureIndex, x: token.x, endX });
+            });
+          });
+        });
+      });
+    });
+    return tokenMap;
+  }
+
+  function buildScheduler(liveScore) {
+    const tokenMap = buildTokenMap(liveScore);
+    const itemsByTick = new Map();
+
+    for (const event of liveScore?.playback?.events || []) {
+      if (event.type !== "note-on" || !event.ids?.length) continue;
+      for (const id of event.ids) {
+        const position = tokenMap.get(String(id));
+        if (!position) continue;
+        const items = itemsByTick.get(event.tick) || [];
+        items.push({ ...position, tick: event.tick });
+        itemsByTick.set(event.tick, items);
+      }
+    }
+
+    const ticks = Array.from(itemsByTick.keys()).sort((a, b) => a - b);
+    const tickTable = [];
+    for (let index = 0; index < ticks.length; index += 1) {
+      const tick = ticks[index];
+      const nextTick = ticks[index + 1] ?? liveScore?.playback?.endTick ?? tick;
+      for (const item of itemsByTick.get(tick) || []) {
+        tickTable.push({
+          system: item.system,
+          measure: item.measure,
+          x: item.x,
+          endX: Number.isFinite(item.endX) ? item.endX : item.x,
+          tick,
+          endTick: nextTick,
+        });
+      }
+    }
+
+    tickTable.sort((a, b) => a.tick - b.tick || a.system - b.system || a.x - b.x);
+
+    return {
+      tickTable,
+      lookupTick(position) {
+        const rowItems = tickTable.filter(item => item.system === position.system).sort((i1, i2) => i1.x - i2.x);
+        let item = rowItems.find(candidate => candidate.x <= position.x && candidate.endX >= position.x);
+        if (!item) {
+          const firstItem = rowItems[0];
+          if (firstItem && position.x < firstItem.endX) item = firstItem;
+          else return null;
+        }
+        if (item.endX === item.x) return item.tick;
+        return item.tick + (Math.max(position.x - item.x, 0) * (item.endTick - item.tick)) / (item.endX - item.x);
+      },
+      lookupPosition(tick) {
+        const candidates = tickTable.filter(item => item.tick <= tick && item.endTick >= tick);
+        const item = candidates[0] || tickTable.find(item => item.tick >= tick) || tickTable.at(-1);
+        if (!item) return null;
+        if (item.endTick === item.tick || item.endX === item.x) return { system: item.system, measure: item.measure, x: item.x };
+        return {
+          system: item.system,
+          measure: item.measure,
+          x: item.x + ((tick - item.tick) * (item.endX - item.x)) / (item.endTick - item.tick),
+        };
+      },
+    };
+  }
+
+  function systemGlobalIndex(liveScore, pageIndex, systemIndex) {
+    let offset = 0;
+    for (let i = 0; i < pageIndex; i += 1) offset += liveScore.pages[i]?.systems?.length || 0;
+    return offset + systemIndex;
+  }
+
+  function cursorPage(liveScore, system) {
+    let systemOffset = 0;
+    for (let pageIndex = 0; pageIndex < liveScore.pages.length; pageIndex += 1) {
+      const nextOffset = systemOffset + (liveScore.pages[pageIndex].systems?.length || 0);
+      if (system >= systemOffset && system < nextOffset) return pageIndex;
+      systemOffset = nextOffset;
+    }
+    return Math.max(0, liveScore.pages.length - 1);
+  }
+
+  function lookupMeasureTick(liveScore, position) {
+    for (let pageIndex = 0; pageIndex < liveScore.pages.length; pageIndex += 1) {
+      const page = liveScore.pages[pageIndex];
+      for (let systemIndex = 0; systemIndex < (page.systems || []).length; systemIndex += 1) {
+        if (systemGlobalIndex(liveScore, pageIndex, systemIndex) !== position.system) continue;
+        const measure = page.systems[systemIndex].measures?.find(item => item.x1 <= position.x && item.x2 >= position.x);
+        if (!measure || !Number.isFinite(measure.t1) || !Number.isFinite(measure.t2) || measure.x2 === measure.x1) return null;
+        return measure.t1 + ((position.x - measure.x1) * (measure.t2 - measure.t1)) / (measure.x2 - measure.x1);
+      }
+    }
+    return null;
+  }
+
+  function lookupSeek(position) {
+    const scheduler = state.scheduler;
+    const tick = scheduler?.lookupTick(position);
+    if (Number.isFinite(tick)) return { position: scheduler.lookupPosition(tick), tick };
+
+    const rowItems = scheduler?.tickTable.filter(item => item.system === position.system) || [];
+    const candidates = rowItems.flatMap(item => [item.x, item.endX]).filter(Number.isFinite);
+    if (candidates.length) {
+      const x = candidates.reduce((closest, value) => Math.abs(value - position.x) < Math.abs(closest - position.x) ? value : closest);
+      const snappedPosition = { ...position, x };
+      const snappedTick = scheduler.lookupTick(snappedPosition);
+      return Number.isFinite(snappedTick) ? { position: scheduler.lookupPosition(snappedTick), tick: snappedTick } : null;
+    }
+
+    const measureTick = lookupMeasureTick(state.liveScore, position);
+    return Number.isFinite(measureTick) ? { position, tick: measureTick } : null;
+  }
+
+  function imageTransform(page) {
+    const source = page.source;
+    if (!source?.w || !source?.h) return "";
+    const interval = source.interval || 1;
+    const matrix = source.matrix || [1, 0, 0, 1, 0, 0];
+    return `translate(${page.w / 2} ${page.h / 2}) matrix(${matrix.join(" ")}) scale(${1 / interval}) translate(${-source.w / 2} ${-source.h / 2})`;
+  }
+
+  function staffLayoutForSystem(system) {
+    if ((state.liveScore?.staffLayout || "").trim() === "{-}" && system.staves?.length >= 2) {
+      return { conjunctions: Array(system.staves.length - 1).fill(2) };
+    }
+    return { conjunctions: Array(Math.max(0, (system.staves?.length || 0) - 1)).fill(2) };
+  }
+
+  function appendStaffBrackets(parent, system, staffTop, staffBottom) {
+    if (!state.liveScore?.staffLayout || system.staffMask === undefined || (system.staves?.length || 0) < 2) return;
+    parent.appendChild(createSvgNode("line", { class: "connection", x1: 0, x2: 0, y1: staffTop, y2: staffBottom }));
+
+    const group = createSvgNode("g", { class: "staff-brackets" });
+    group.appendChild(createSvgNode("line", { x1: -0.9, x2: -0.9, y1: staffTop, y2: staffBottom, "stroke-width": 0.1 }));
+    group.appendChild(createSvgNode("line", { x1: -0.9, x2: 0, y1: staffTop, y2: staffTop, "stroke-width": 0.1 }));
+    group.appendChild(createSvgNode("line", { x1: -0.9, x2: 0, y1: staffBottom, y2: staffBottom, "stroke-width": 0.1 }));
+    parent.appendChild(group);
+  }
+
+  function renderTokens(parent, staff) {
     for (const measure of staff.measures || []) {
       for (const token of measure.tokens || []) {
-        if (!token || !token.typeId || !token.typeId.startsWith(NOTEHEAD_PREFIX))
-          continue;
-
-        const element = createSvgNode("g", {
-          class: "score-notehead",
-          transform: `translate(${token.x} ${token.y})`,
-          "data-token-id": token.id,
+        if (!token?.t) continue;
+        const element = createSvgNode("use", {
+          href: `#score-token-def-${token.t}`,
+          x: token.x,
+          y: staff.staffY + token.y,
         });
-        element.appendChild(createSvgNode("use", { href: `#score-token-def-${token.typeId}` }));
-        layer.appendChild(element);
-
         if (token.id !== undefined && token.id !== null) {
-          const elements = state.tokenElements.get(token.id) || [];
+          const id = String(token.id);
+          element.id = id;
+          const elements = state.tokenElements.get(id) || [];
           elements.push(element);
-          state.tokenElements.set(token.id, elements);
+          state.tokenElements.set(id, elements);
         }
+        parent.appendChild(element);
       }
     }
-
-    parent.appendChild(layer);
   }
 
-  function noteheadTypeForEvent(event) {
-    const base = event.division <= 0 ? "noteheads-s0" : event.division === 1 ? "noteheads-s1" : "noteheads-s2";
-    if (event.division <= 0 || !event.stemDirection)
-      return base;
+  function renderLiveScorePage(liveScore, page, pageIndex) {
+    const svg = createSvgNode("svg", { class: "live-score-page", viewBox: `0 0 ${page.w} ${page.h}` });
+    const showSource = originalToggle.checked;
 
-    return `${base}-${event.stemDirection}`;
-  }
-
-  function renderSpartitoEvents(parent, systemIndex) {
-    const measures = state.score?.spartito?.measures;
-    if (!Array.isArray(measures))
-      return;
-
-    const layer = createSvgNode("g", { class: "score-spartito-events" });
-
-    for (const measure of measures) {
-      if (measure?.position?.systemIndex !== systemIndex)
-        continue;
-
-      for (const event of measure.events || []) {
-        if (event.rest || !Array.isArray(event.ys))
-          continue;
-
-        const staffY = measure.position.staffYs?.[event.staff];
-        if (!Number.isFinite(staffY))
-          continue;
-
-        const typeId = noteheadTypeForEvent(event);
-        for (let index = 0; index < event.ys.length; index += 1) {
-          const tokenId = event.noteIds?.[index];
-          const element = createSvgNode("g", {
-            class: "score-notehead",
-            transform: `translate(${event.x} ${staffY + event.ys[index]})`,
-            "data-token-id": tokenId,
-          });
-          element.appendChild(createSvgNode("use", { href: `#score-token-def-${typeId}` }));
-          layer.appendChild(element);
-
-          if (tokenId !== undefined && tokenId !== null) {
-            const elements = state.tokenElements.get(tokenId) || [];
-            elements.push(element);
-            state.tokenElements.set(tokenId, elements);
-          }
-        }
-      }
+    if (showSource && page.source?.url) {
+      svg.appendChild(createSvgNode("image", {
+        href: page.source.url,
+        width: page.source.w,
+        height: page.source.h,
+        transform: imageTransform(page),
+        opacity: 0.35,
+        preserveAspectRatio: "none",
+      }));
     }
 
-    parent.appendChild(layer);
-  }
-
-  function renderSymbolicPage(page, systemOffset) {
-    const svg = createSvgNode("svg", {
-      viewBox: `0 0 ${page.width} ${page.height}`,
-      role: "img",
-      "aria-label": "Rendered score page",
-    });
-
-    (page.systems || []).forEach((system, pageSystemIndex) => {
-      const systemGroup = createSvgNode("g", {
-        class: "score-system",
-        transform: `translate(${system.left} ${system.top})`,
-      });
+    (page.systems || []).forEach((system, systemIndex) => {
+      const systemKey = systemGlobalIndex(liveScore, pageIndex, systemIndex);
+      const firstStaff = system.staves?.[0];
+      const lastStaff = system.staves?.at(-1);
+      const staffTop = (firstStaff?.y ?? 0) + (firstStaff?.staffY ?? 0) - 2;
+      const staffBottom = (lastStaff?.y ?? 0) + (lastStaff?.staffY ?? 0) + 2;
+      const systemGroup = createSvgNode("g", { class: "live-score-system", transform: `translate(${system.x}, ${system.y})` });
 
       for (const staff of system.staves || []) {
-        const staffGroup = createSvgNode("g", {
-          class: "score-staff",
-          transform: `translate(0 ${staff.top})`,
+        const staffGroup = createSvgNode("g", { class: "live-score-staff", transform: `translate(0, ${staff.y})` });
+        if (!showSource && staff.image?.url) {
+          staffGroup.appendChild(createSvgNode("image", {
+            class: "background",
+            href: staff.image.url,
+            x: staff.image.x,
+            y: staff.image.y,
+            width: staff.image.width,
+            height: staff.image.height,
+          }));
+        }
+        [-2, -1, 0, 1, 2].forEach(line => {
+          staffGroup.appendChild(createSvgNode("line", { x1: 0, x2: system.w, y1: staff.staffY + line, y2: staff.staffY + line }));
         });
-        appendStaffLines(staffGroup, staff.staffY, system.width);
-        appendMeasureBars(staffGroup, system.measureBars, staff.staffY);
-        renderMeasureTokens(staffGroup, staff);
+        for (const line of staff.additionalLines || []) {
+          staffGroup.appendChild(createSvgNode("line", { x1: line.left, x2: line.right, y1: staff.staffY + line.n, y2: staff.staffY + line.n }));
+        }
+        renderTokens(staffGroup, staff);
         systemGroup.appendChild(staffGroup);
       }
 
-      renderSpartitoEvents(systemGroup, systemOffset + pageSystemIndex);
+      if (!showSource) {
+        const layout = staffLayoutForSystem(system);
+        for (const [barIndex, x] of (system.bars || []).entries()) {
+          for (const [staffIndex, staff] of (system.staves || []).entries()) {
+            systemGroup.appendChild(createSvgNode("line", {
+              class: "bar",
+              x1: x,
+              x2: x,
+              y1: staff.y + staff.staffY - 2,
+              y2: staff.y + staff.staffY + 2,
+              "data-bar-index": barIndex,
+              "data-staff-index": staffIndex,
+            }));
+          }
+          layout.conjunctions.forEach((conjunction, staffIndex) => {
+            const staff1 = system.staves[staffIndex];
+            const staff2 = system.staves[staffIndex + 1];
+            if (!staff1 || !staff2) return;
+            systemGroup.appendChild(createSvgNode("line", {
+              class: `bar staff-layout-measure-bar${conjunction === 1 ? " dashed" : ""}${conjunction === 0 ? " blank" : ""}`,
+              x1: x,
+              x2: x,
+              y1: staff1.y + staff1.staffY + 2,
+              y2: staff2.y + staff2.staffY - 2,
+            }));
+          });
+        }
+        appendStaffBrackets(systemGroup, system, staffTop, staffBottom);
+      }
 
+      if (state.cursor?.system === systemKey) {
+        systemGroup.appendChild(createSvgNode("line", { class: "cursor", x1: state.cursor.x, x2: state.cursor.x, y1: staffTop, y2: staffBottom }));
+      }
+
+      const hit = createSvgNode("rect", { class: "live-score-system-hit", x: 0, y: staffTop, width: system.w, height: staffBottom - staffTop });
+      hit.addEventListener("click", event => {
+        const rect = hit.getBoundingClientRect();
+        const bbox = hit.getBBox();
+        const x = ((event.clientX - rect.left) / rect.width) * bbox.width;
+        seekPosition({ system: systemKey, x }).catch(error => setStatus(`Seek failed: ${error.message}`));
+      });
+      systemGroup.appendChild(hit);
       svg.appendChild(systemGroup);
     });
 
@@ -265,32 +456,50 @@
   function renderScore() {
     stage.innerHTML = "";
     state.tokenElements.clear();
+    state.pageFrames = [];
 
-    if (!state.score)
+    if (!state.liveScore) {
+      const empty = createNode("div", { class: "live-score-empty" });
+      empty.textContent = "Waiting for a hash URL.";
+      stage.appendChild(empty);
       return;
+    }
 
-    const showOriginal = originalToggle.checked;
-    let systemOffset = 0;
-    for (const page of state.score.pages || []) {
-      const pageCard = document.createElement("article");
-      pageCard.className = "score-page";
-      pageCard.appendChild(showOriginal ? renderOriginalPage(page) : renderSymbolicPage(page, systemOffset));
-      stage.appendChild(pageCard);
-      systemOffset += page.systems?.length || 0;
+    const pages = createNode("div", { class: "live-score-pages" });
+    state.liveScore.pages.forEach((page, pageIndex) => {
+      const frame = createNode("article", { class: "live-score-page-frame" });
+      frame.appendChild(renderLiveScorePage(state.liveScore, page, pageIndex));
+      pages.appendChild(frame);
+      state.pageFrames.push(frame);
+    });
+    stage.appendChild(pages);
+  }
+
+  function updateCursor(tick) {
+    state.cursor = state.scheduler?.lookupPosition(tick) || null;
+    renderScore();
+    if (!state.cursor || !state.liveScore) return;
+    const pageIndex = cursorPage(state.liveScore, state.cursor.system);
+    if (pageIndex === state.activePage) return;
+    state.activePage = pageIndex;
+    state.pageFrames[pageIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }
+
+  function setTokenHighlight(ids, enabled) {
+    if (!Array.isArray(ids)) return;
+    for (const id of ids) {
+      const elements = state.tokenElements.get(String(id));
+      if (!elements) continue;
+      elements.forEach(element => element.classList.toggle("notePlayOn", enabled));
     }
   }
 
   function buildPlayer(notation) {
-    const { MidiAudio, MidiPlayer, MusicNotation } = widgets;
-
-    Object.setPrototypeOf(notation, MusicNotation.Notation.prototype);
-
+    const { MidiAudio, MidiPlayer } = widgets;
     return new MidiPlayer(notation, {
       cacheSpan: 200,
       onMidi(data, timestamp) {
-        if (!data || data.type !== "channel")
-          return;
-
+        if (!data || data.type !== "channel") return;
         switch (data.subtype) {
           case "programChange":
             MidiAudio.programChange(data.channel, data.programNumber);
@@ -308,52 +517,28 @@
       onPlayFinish() {
         clearScheduledTasks();
         clearHighlights();
-        if (widgets?.MidiAudio?.stopAllNotes)
-          widgets.MidiAudio.stopAllNotes();
+        if (widgets?.MidiAudio?.stopAllNotes) widgets.MidiAudio.stopAllNotes();
         setPlayingUi(false);
         setStatus("Playback finished.");
-        if (state.player)
-          state.player.progressTicks = 0;
+        if (state.player) state.player.progressTicks = 0;
+        updateCursor(0);
       },
     });
   }
 
   async function ensureAudio() {
-    if (state.audioReady)
-      return;
-
-    const { MidiAudio } = widgets;
-    await MidiAudio.loadPlugin({
-      soundfontUrl: soundfontUrl(),
-      api: "webaudio",
-    });
+    if (state.audioReady) return;
+    await widgets.MidiAudio.loadPlugin({ soundfontUrl: soundfontUrl(), api: "webaudio" });
     state.audioReady = true;
   }
 
-  function updateTempoLabel(score) {
-    const tempo = score?.performing?.notation?.tempos?.[0]?.tempo;
+  function updateTempoLabel(liveScore) {
+    const tempo = liveScore?.playback?.tempos?.[0]?.tempo;
     if (!Number.isFinite(tempo) || tempo <= 0) {
       tempoNode.textContent = "Tempo: -- bpm";
       return;
     }
-
     tempoNode.textContent = `Tempo: ${Math.round(60000000 / tempo)} bpm`;
-  }
-
-  function resetPlayer() {
-    clearScheduledTasks();
-    clearHighlights();
-
-    if (state.player) {
-      state.player.pause();
-      state.player = null;
-    }
-
-    if (widgets?.MidiAudio?.stopAllNotes)
-      widgets.MidiAudio.stopAllNotes();
-
-    setPlayingUi(false);
-    playToggle.disabled = !state.score?.performing?.notation;
   }
 
   async function loadScoreFromHash() {
@@ -366,74 +551,94 @@
     tempoNode.textContent = "Tempo: -- bpm";
 
     if (!scoreUrl) {
-      state.score = null;
-      setStatus("Provide a score.json URL in location.hash.");
+      state.liveScore = null;
+      renderScore();
+      setStatus("Provide a LiveScore URL in location.hash.");
       return;
     }
 
-    setStatus("Loading score.json ...");
+    setStatus("Loading LiveScore ...");
 
     try {
       const response = await fetch(scoreUrl, { credentials: "omit" });
-      if (!response.ok)
-        throw new Error(`HTTP ${response.status}`);
+      const liveScore = await loadLiveScoreFromResponse(response);
+      if (requestId !== state.scoreId) return;
 
-      const score = await response.json();
-      if (requestId !== state.scoreId)
-        return;
-
-      state.score = score;
+      state.liveScore = liveScore;
+      state.scheduler = buildScheduler(liveScore);
+      state.activePage = null;
+      updateTempoLabel(liveScore);
       renderScore();
-      updateTempoLabel(score);
 
-      if (score?.performing?.notation)
-        state.player = buildPlayer(score.performing.notation);
-
+      const notation = buildMidiNotation(liveScore.playback);
+      if (notation) state.player = buildPlayer(notation);
       playToggle.disabled = !state.player;
-      setStatus(state.player ? "Score loaded." : "Score loaded, but no performing notation was found.");
+      setStatus(state.player ? "LiveScore loaded." : "LiveScore loaded, but no playback data was found.");
     }
     catch (error) {
-      if (requestId !== state.scoreId)
-        return;
-
-      state.score = null;
+      if (requestId !== state.scoreId) return;
+      state.liveScore = null;
       playToggle.disabled = true;
-      setStatus(`Failed to load score.json: ${error.message}`);
+      renderScore();
+      setStatus(`Failed to load LiveScore: ${error.message}`);
     }
   }
 
+  async function playMidi() {
+    if (!state.player || state.player.isPlaying) return;
+    setStatus("Preparing audio ...");
+    await ensureAudio();
+    if (widgets?.MidiAudio?.WebAudio?.needsWarmup?.()) await widgets.MidiAudio.WebAudio.awaitWarmup();
+
+    setStatus("Playing.");
+    setPlayingUi(true);
+    state.player.play({
+      nextFrame: () => new Promise(resolve => requestAnimationFrame(() => {
+        updateCursor(state.player?.progressTicks || 0);
+        resolve();
+      })),
+    }).catch(error => {
+      clearScheduledTasks();
+      clearHighlights();
+      if (widgets?.MidiAudio?.stopAllNotes) widgets.MidiAudio.stopAllNotes();
+      setPlayingUi(false);
+      setStatus(`Playback failed: ${error.message}`);
+    });
+  }
+
   async function togglePlayback() {
-    if (!state.player)
-      return;
+    if (!state.player) return;
 
     if (state.player.isPlaying) {
       state.player.pause();
       clearScheduledTasks();
       clearHighlights();
-      if (widgets?.MidiAudio?.stopAllNotes)
-        widgets.MidiAudio.stopAllNotes();
+      if (widgets?.MidiAudio?.stopAllNotes) widgets.MidiAudio.stopAllNotes();
       setPlayingUi(false);
       setStatus("Paused.");
       return;
     }
 
-    setStatus("Preparing audio ...");
-    await ensureAudio();
+    await playMidi();
+  }
 
-    if (widgets?.MidiAudio?.WebAudio?.needsWarmup?.())
-      await widgets.MidiAudio.WebAudio.awaitWarmup();
+  async function seekPosition(position) {
+    if (!state.player) return;
+    const seek = lookupSeek(position);
+    if (!seek) return;
+    const wasPlaying = state.player.isPlaying;
+    if (wasPlaying) {
+      state.player.pause();
+      await new Promise(resolve => setTimeout(resolve, 0));
+    }
 
-    setStatus("Playing.");
-    setPlayingUi(true);
+    clearScheduledTasks();
+    clearHighlights();
+    state.player.progressTicks = seek.tick;
+    state.cursor = seek.position;
+    renderScore();
 
-    state.player.play().catch(error => {
-      clearScheduledTasks();
-      clearHighlights();
-      if (widgets?.MidiAudio?.stopAllNotes)
-        widgets.MidiAudio.stopAllNotes();
-      setPlayingUi(false);
-      setStatus(`Playback failed: ${error.message}`);
-    });
+    if (wasPlaying) await playMidi();
   }
 
   playToggle.addEventListener("click", () => {
@@ -448,9 +653,7 @@
   });
 
   window.addEventListener("hashchange", () => {
-    loadScoreFromHash().catch(error => {
-      setStatus(`Failed to load score.json: ${error.message}`);
-    });
+    loadScoreFromHash().catch(error => setStatus(`Failed to load LiveScore: ${error.message}`));
   });
 
   if (!widgets) {
@@ -459,7 +662,6 @@
     return;
   }
 
-  loadScoreFromHash().catch(error => {
-    setStatus(`Failed to load score.json: ${error.message}`);
-  });
+  renderScore();
+  loadScoreFromHash().catch(error => setStatus(`Failed to load LiveScore: ${error.message}`));
 })();
