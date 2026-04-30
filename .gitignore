@@ -1,2 +1,6 @@
 *.local.*
 *.local
+
+assets/scores/*.json
+assets/scores/*.webp
+assets/scores/images/
