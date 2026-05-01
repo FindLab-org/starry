@@ -181,7 +181,7 @@
         <section class="card section-card">
           <h2>Show Cases</h2>
           <p>
-            Select a recognition result below to inspect the decoded symbolic structure directly in the browser. The embedded playground focuses on score inspection, with the original-image toggle available for comparing decoded notation against visual evidence.
+            The examples below show a simplified player for Starry recognition results. You can play back the preview output and switch between the original score image and the segmented, denoised view to compare the two visualizations.
           </p>
           <div class="score-tabs" id="score-tabs" role="tablist" aria-label="Showcase scores"></div>
           <div class="playground-embed" role="region" aria-label="Embedded Starry score playground">
@@ -191,6 +191,16 @@
               loading="lazy"
             ></iframe>
           </div>
+        </section>
+
+        <section class="card section-card">
+          <h2>Try it yourself</h2>
+          <p>
+            Try the live demo on Hugging Face: upload a score <strong>image</strong> or <strong>PDF</strong> for Starry recognition, inspect and edit the recognized result, and export it to <strong>MusicXML</strong> and other standard music notation formats.
+          </p>
+          <p>
+            <a class="text-link" href="https://huggingface.co/spaces/k-l-lambda/starry" target="_blank" rel="noreferrer">🤗 Open the Starry✨ live demo</a>
+          </p>
         </section>
       </main>
     </div>
@@ -209,7 +219,7 @@
           tab.classList.toggle('is-active', tab === button);
           tab.setAttribute('aria-selected', tab === button ? 'true' : 'false');
         });
-        const version = new Date().toISOString().replace(/-/g, '');
+        const version = new Date().toISOString().substring(0, 10).replace(/-/g, '');
         showcasePlayground.src = `playground.html?v=${version}#assets/scores/${encodeURIComponent(filename)}`;
       };
 
