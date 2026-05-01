@@ -217,6 +217,10 @@
   stroke-width: 0.08px;
 }
 
+.live-score-page image {
+  pointer-events: none;
+}
+
 .live-score-system-hit {
   fill: transparent;
   cursor: pointer;

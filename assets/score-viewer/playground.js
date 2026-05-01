@@ -322,6 +322,12 @@
   }
 
   function lookupSeek(position) {
+    const measureTick = lookupMeasureTick(state.liveScore, position);
+    if (Number.isFinite(measureTick)) {
+      const schedulerPosition = state.scheduler?.lookupPosition(measureTick) || position;
+      return { position: schedulerPosition, tick: measureTick };
+    }
+
     const scheduler = state.scheduler;
     const tick = scheduler?.lookupTick(position);
     if (Number.isFinite(tick)) return { position: scheduler.lookupPosition(tick), tick };
@@ -335,8 +341,7 @@
       return Number.isFinite(snappedTick) ? { position: scheduler.lookupPosition(snappedTick), tick: snappedTick } : null;
     }
 
-    const measureTick = lookupMeasureTick(state.liveScore, position);
-    return Number.isFinite(measureTick) ? { position, tick: measureTick } : null;
+    return null;
   }
 
   function imageTransform(page) {
@@ -524,6 +529,7 @@
 
     if (showSource && page.source?.url) {
       svg.appendChild(createSvgNode("image", {
+        class: "source-image",
         href: page.source.url,
         width: page.source.w,
         height: page.source.h,
@@ -612,11 +618,14 @@
       }
 
       const hit = createSvgNode("rect", { class: "live-score-system-hit", x: 0, y: staffTop, width: system.w, height: staffBottom - staffTop });
-      hit.addEventListener("click", event => {
+      hit.addEventListener("pointerdown", event => {
+        event.preventDefault();
         const rect = hit.getBoundingClientRect();
         const bbox = hit.getBBox();
         const x = ((event.clientX - rect.left) / rect.width) * bbox.width;
-        seekPosition({ system: systemKey, x }).catch(error => setStatus(`Seek failed: ${error.message}`));
+        seekPosition({ system: systemKey, x }).catch(error => {
+          setStatus(`Seek failed: ${error.message}`);
+        });
       });
       systemGroup.appendChild(hit);
       svg.appendChild(systemGroup);
@@ -841,23 +850,32 @@
     await playMidi();
   }
 
+
+  function syncPlayerTick(tick) {
+    if (!state.player) return;
+    state.player.progressTicks = tick;
+  }
+
   async function seekPosition(position) {
     if (!state.player) return;
     const seek = lookupSeek(position);
     if (!seek) return;
+
     const wasPlaying = state.player.isPlaying;
     if (wasPlaying) {
       state.player.pause();
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     }
 
     clearScheduledTasks();
     clearHighlights();
-    state.player.progressTicks = seek.tick;
-    state.cursor = seek.position;
-    renderScore();
+    if (widgets?.MidiAudio?.stopAllNotes) widgets.MidiAudio.stopAllNotes();
+    syncPlayerTick(seek.tick);
+    updateCursor(seek.tick);
 
-    if (wasPlaying) await playMidi();
+    if (wasPlaying) {
+      await playMidi();
+    }
   }
 
   tempoUp.addEventListener("click", () => applyTempo(10));
