@@ -3,7 +3,9 @@
   const stage = document.getElementById("score-stage");
   const statusNode = document.getElementById("viewer-status");
   const scoreUrlNode = document.getElementById("score-url");
-  const tempoNode = document.getElementById("tempo-label");
+  const tempoValueNode = document.getElementById("tempo-value");
+  const tempoUp = document.getElementById("tempo-up");
+  const tempoDown = document.getElementById("tempo-down");
   const playToggle = document.getElementById("play-toggle");
   const originalToggle = document.getElementById("original-toggle");
 
@@ -16,12 +18,33 @@
     audioReady: false,
     scheduledTasks: new Set(),
     tokenElements: new Map(),
+    activeTokenIds: new Set(),
     scoreId: 0,
     scheduler: null,
     cursor: null,
     pageFrames: [],
     activePage: null,
+    baseTempo: null,
+    tempoBpm: null,
   };
+
+  const NOTEHEAD_TYPES = new Set([
+    "noteheads-s0",
+    "noteheads-s1",
+    "noteheads-s2",
+    "noteheads-s1-u",
+    "noteheads-s2-u",
+    "noteheads-s1-d",
+    "noteheads-s2-d",
+  ]);
+
+  function tokenType(token) {
+    return token?.t || token?.typeId || token?.type;
+  }
+
+  function isNoteheadToken(token) {
+    return NOTEHEAD_TYPES.has(tokenType(token));
+  }
 
   function setStatus(text) {
     statusNode.textContent = text;
@@ -58,6 +81,7 @@
   }
 
   function clearHighlights() {
+    state.activeTokenIds.clear();
     document.querySelectorAll(".notePlayOn").forEach(element => element.classList.remove("notePlayOn"));
   }
 
@@ -321,36 +345,167 @@
     return `translate(${page.w / 2} ${page.h / 2}) matrix(${matrix.join(" ")}) scale(${1 / interval}) translate(${-source.w / 2} ${-source.h / 2})`;
   }
 
-  function staffLayoutForSystem(system) {
-    if ((state.liveScore?.staffLayout || "").trim() === "{-}" && system.staves?.length >= 2) {
-      return { conjunctions: Array(system.staves.length - 1).fill(2) };
+  function parseStaffLayout(code, visibleCount) {
+    const text = (code || "").trim();
+    const conjunctions = [];
+    const groups = [];
+    const stack = [];
+    let staffIndex = 0;
+    let sawSeparator = false;
+    let sawExplicitStaff = false;
+
+    for (const char of text) {
+      if ("{<[".includes(char)) {
+        const type = char === "{" ? 1 : char === "<" ? 2 : 3;
+        stack.push({ type, start: staffIndex, level: stack.length });
+      }
+      else if ("}>]".includes(char)) {
+        const group = stack.pop();
+        if (group) groups.push({ ...group, end: staffIndex });
+      }
+      else if (",-.".includes(char)) {
+        conjunctions[staffIndex] = char === "," ? 0 : char === "." ? 1 : 2;
+        staffIndex += 1;
+        sawSeparator = true;
+      }
+      else if (!/\s/.test(char)) {
+        if (sawExplicitStaff) staffIndex += 1;
+        sawExplicitStaff = true;
+      }
     }
-    return { conjunctions: Array(Math.max(0, (system.staves?.length || 0) - 1)).fill(2) };
+
+    while (stack.length) {
+      const group = stack.pop();
+      groups.push({ ...group, end: staffIndex });
+    }
+
+    const staffCount = Math.max(visibleCount, sawSeparator || sawExplicitStaff ? staffIndex + 1 : visibleCount);
+    const staffIndexes = Array.from({ length: staffCount }, (_, index) => index);
+
+    return {
+      staffIndexes,
+      conjunctions: Array.from({ length: Math.max(0, staffCount - 1) }, (_, index) => conjunctions[index] ?? 2),
+      groups,
+    };
   }
 
-  function appendStaffBrackets(parent, system, staffTop, staffBottom) {
-    if (!state.liveScore?.staffLayout || system.staffMask === undefined || (system.staves?.length || 0) < 2) return;
-    parent.appendChild(createSvgNode("line", { class: "connection", x1: 0, x2: 0, y1: staffTop, y2: staffBottom }));
+  function staffLayoutForSystem(system) {
+    const parsed = parseStaffLayout(state.liveScore?.staffLayout, system.staves?.length || 0);
+    const mask = Number.isFinite(system.staffMask) ? system.staffMask : null;
+    const visibleOriginalIndexes = parsed.staffIndexes.filter((_, index) => mask === null || ((mask >> index) & 1));
+    const visibleIndexes = visibleOriginalIndexes.length ? visibleOriginalIndexes : parsed.staffIndexes.slice(0, system.staves?.length || 0);
+    const originalToVisible = new Map(visibleIndexes.map((originalIndex, visibleIndex) => [originalIndex, visibleIndex]));
 
-    const group = createSvgNode("g", { class: "staff-brackets" });
-    group.appendChild(createSvgNode("line", { x1: -0.9, x2: -0.9, y1: staffTop, y2: staffBottom, "stroke-width": 0.1 }));
-    group.appendChild(createSvgNode("line", { x1: -0.9, x2: 0, y1: staffTop, y2: staffTop, "stroke-width": 0.1 }));
-    group.appendChild(createSvgNode("line", { x1: -0.9, x2: 0, y1: staffBottom, y2: staffBottom, "stroke-width": 0.1 }));
+    return {
+      conjunctions: Array.from({ length: Math.max(0, (system.staves?.length || 0) - 1) }, (_, visibleIndex) => {
+        const originalIndex = visibleIndexes[visibleIndex];
+        return parsed.conjunctions[originalIndex] ?? 2;
+      }),
+      groups: parsed.groups
+        .map(group => ({
+          ...group,
+          start: originalToVisible.get(group.start),
+          end: originalToVisible.get(group.end),
+        }))
+        .filter(group => Number.isFinite(group.start) && Number.isFinite(group.end) && group.start < group.end),
+    };
+  }
+
+  function appendBrace(parent, top, bottom, level) {
+    const group = createSvgNode("g", { class: "brace", transform: `translate(${-0.2 - level * 1.2}, ${(top + bottom) / 2})` });
+    group.appendChild(createSvgNode("path", {
+      transform: `scale(0.0040, ${(-0.004 * (bottom - top)) / 15.1825})`,
+      d: "M-208 -1336c0 312 124 616 124 912c0 156 -36 300 -144 416c0 4 -4 4 -4 8s4 4 4 8c108 116 144 260 144 416c0 296 -124 600 -124 912c0 212 52 420 196 576c16 16 40 -8 24 -24c-108 -120 -144 -264 -144 -420c0 -292 116 -588 116 -896c0 -212 -48 -416 -188 -572c140 -156 188 -360 188 -572c0 -308 -116 -604 -116 -896c0 -156 36 -300 144 -420c16 -16 -8 -40 -24 -24c-144 156 -196 364 -196 576z",
+    }));
     parent.appendChild(group);
+  }
+
+  function appendBracket(parent, top, bottom, level) {
+    const x = -1.2 - level * 1.2;
+    const group = createSvgNode("g", { class: "bracket" });
+    group.appendChild(createSvgNode("rect", { x, y: top, width: 0.45, height: bottom - top }));
+    group.appendChild(createSvgNode("path", { transform: `translate(${x}, ${top - 0.21}) scale(0.0040, -0.0040)`, d: "M0 -56v91c0 12 10 21 22 21h43c164 0 281 136 377 272c10 14 32 -1 22 -15c-103 -145 -222 -369 -399 -369h-65z" }));
+    group.appendChild(createSvgNode("path", { transform: `translate(${x}, ${bottom + 0.21}) scale(0.0040, -0.0040)`, d: "M0 56h65c177 0 296 -224 399 -369c10 -14 -12 -29 -22 -15c-96 136 -213 272 -377 272h-43c-12 0 -22 9 -22 21v91z" }));
+    parent.appendChild(group);
+  }
+
+  function appendSquareBracket(parent, top, bottom, level) {
+    const x = -0.9 - level * 1.2;
+    const group = createSvgNode("g", { class: "square" });
+    group.appendChild(createSvgNode("line", { x1: x, x2: x, y1: top, y2: bottom, "stroke-width": 0.1 }));
+    group.appendChild(createSvgNode("line", { x1: x, x2: 0, y1: top, y2: top, "stroke-width": 0.1 }));
+    group.appendChild(createSvgNode("line", { x1: x, x2: 0, y1: bottom, y2: bottom, "stroke-width": 0.1 }));
+    parent.appendChild(group);
+  }
+
+  function appendStaffBrackets(parent, system, layout) {
+    if ((system.staves?.length || 0) < 2) return;
+    const group = createSvgNode("g", { class: "staff-brackets" });
+
+    const firstStaff = system.staves[0];
+    const lastStaff = system.staves.at(-1);
+    if (firstStaff && lastStaff) {
+      group.appendChild(createSvgNode("line", {
+        class: "connection",
+        x1: 0,
+        x2: 0,
+        y1: firstStaff.y + firstStaff.staffY - 2,
+        y2: lastStaff.y + lastStaff.staffY + 2,
+      }));
+    }
+
+    for (const bracket of layout.groups || []) {
+      const topStaff = system.staves[bracket.start];
+      const bottomStaff = system.staves[bracket.end];
+      if (!topStaff || !bottomStaff) continue;
+      const top = topStaff.y + topStaff.staffY - 2;
+      const bottom = bottomStaff.y + bottomStaff.staffY + 2;
+      if (bracket.type === 1) appendBrace(group, top, bottom, bracket.level || 0);
+      else if (bracket.type === 2) appendBracket(group, top, bottom, bracket.level || 0);
+      else if (bracket.type === 3) appendSquareBracket(group, top, bottom, bracket.level || 0);
+    }
+    if (group.childNodes.length) parent.appendChild(group);
+  }
+
+  function isTextToken(token) {
+    return token?.type === "Text" || token?.type === "text" || typeof token?.text === "string";
+  }
+
+  function appendTextTokens(parent, tokens, offsetX = 0, offsetY = 0) {
+    for (const token of tokens || []) {
+      if (!isTextToken(token) || !token.text || token.textType === "Chord") continue;
+      const group = createSvgNode("g", { class: "token text-token", transform: `translate(${offsetX + (token.x || 0)}, ${offsetY + (token.y || 0)})` });
+      const text = createSvgNode("text", {
+        class: token.textType || "Other",
+        x: 0,
+        y: -(token.fontSize || 2.8) / 2,
+        "dominant-baseline": "hanging",
+        "text-anchor": "middle",
+        "font-size": token.fontSize || 2.8,
+      });
+      text.textContent = token.text;
+      const title = createSvgNode("title");
+      title.textContent = token.textType || "Text";
+      text.appendChild(title);
+      group.appendChild(text);
+      parent.appendChild(group);
+    }
   }
 
   function renderTokens(parent, staff) {
     for (const measure of staff.measures || []) {
       for (const token of measure.tokens || []) {
-        if (!token?.t) continue;
+        if (!isNoteheadToken(token)) continue;
+        const type = tokenType(token);
         const element = createSvgNode("use", {
-          href: `#score-token-def-${token.t}`,
+          href: `#score-token-def-${type}`,
           x: token.x,
           y: staff.staffY + token.y,
         });
         if (token.id !== undefined && token.id !== null) {
           const id = String(token.id);
           element.id = id;
+          if (state.activeTokenIds.has(id)) element.classList.add("notePlayOn");
           const elements = state.tokenElements.get(id) || [];
           elements.push(element);
           state.tokenElements.set(id, elements);
@@ -370,10 +525,12 @@
         width: page.source.w,
         height: page.source.h,
         transform: imageTransform(page),
-        opacity: 0.35,
+        opacity: 1,
         preserveAspectRatio: "none",
       }));
     }
+
+    if (!showSource) appendTextTokens(svg, page.tokens);
 
     (page.systems || []).forEach((system, systemIndex) => {
       const systemKey = systemGlobalIndex(liveScore, pageIndex, systemIndex);
@@ -395,11 +552,13 @@
             height: staff.image.height,
           }));
         }
-        [-2, -1, 0, 1, 2].forEach(line => {
-          staffGroup.appendChild(createSvgNode("line", { x1: 0, x2: system.w, y1: staff.staffY + line, y2: staff.staffY + line }));
-        });
-        for (const line of staff.additionalLines || []) {
-          staffGroup.appendChild(createSvgNode("line", { x1: line.left, x2: line.right, y1: staff.staffY + line.n, y2: staff.staffY + line.n }));
+        if (!showSource) {
+          [-2, -1, 0, 1, 2].forEach(line => {
+            staffGroup.appendChild(createSvgNode("line", { x1: 0, x2: system.w, y1: staff.staffY + line, y2: staff.staffY + line }));
+          });
+          for (const line of staff.additionalLines || []) {
+            staffGroup.appendChild(createSvgNode("line", { x1: line.left, x2: line.right, y1: staff.staffY + line.n, y2: staff.staffY + line.n }));
+          }
         }
         renderTokens(staffGroup, staff);
         systemGroup.appendChild(staffGroup);
@@ -432,11 +591,21 @@
             }));
           });
         }
-        appendStaffBrackets(systemGroup, system, staffTop, staffBottom);
+        appendStaffBrackets(systemGroup, system, layout);
+        appendTextTokens(systemGroup, system.tokens);
       }
 
       if (state.cursor?.system === systemKey) {
-        systemGroup.appendChild(createSvgNode("line", { class: "cursor", x1: state.cursor.x, x2: state.cursor.x, y1: staffTop, y2: staffBottom }));
+        const bars = Array.isArray(system.bars) ? system.bars.filter(Number.isFinite).slice().sort((a, b) => a - b) : [];
+        const measureLeft = [...bars].reverse().find(x => x <= state.cursor.x) ?? 0;
+        const measureRight = bars.find(x => x > state.cursor.x) ?? system.w;
+        systemGroup.insertBefore(createSvgNode("rect", {
+          class: "active-measure",
+          x: measureLeft,
+          y: staffTop,
+          width: Math.max(0, measureRight - measureLeft),
+          height: staffBottom - staffTop,
+        }), systemGroup.firstChild);
       }
 
       const hit = createSvgNode("rect", { class: "live-score-system-hit", x: 0, y: staffTop, width: system.w, height: staffBottom - staffTop });
@@ -488,7 +657,10 @@
   function setTokenHighlight(ids, enabled) {
     if (!Array.isArray(ids)) return;
     for (const id of ids) {
-      const elements = state.tokenElements.get(String(id));
+      const key = String(id);
+      if (enabled) state.activeTokenIds.add(key);
+      else state.activeTokenIds.delete(key);
+      const elements = state.tokenElements.get(key);
       if (!elements) continue;
       elements.forEach(element => element.classList.toggle("notePlayOn", enabled));
     }
@@ -535,20 +707,54 @@
   function updateTempoLabel(liveScore) {
     const tempo = liveScore?.playback?.tempos?.[0]?.tempo;
     if (!Number.isFinite(tempo) || tempo <= 0) {
-      tempoNode.textContent = "Tempo: -- bpm";
+      state.baseTempo = null;
+      state.tempoBpm = null;
+      tempoValueNode.textContent = "--";
+      tempoUp.disabled = true;
+      tempoDown.disabled = true;
       return;
     }
-    tempoNode.textContent = `Tempo: ${Math.round(60000000 / tempo)} bpm`;
+    const bpm = Math.round(60000000 / tempo);
+    state.baseTempo = tempo;
+    state.tempoBpm = bpm;
+    tempoValueNode.textContent = String(bpm);
+    tempoUp.disabled = false;
+    tempoDown.disabled = false;
+  }
+
+  function applyTempo(delta) {
+    if (!state.liveScore?.playback || !Number.isFinite(state.tempoBpm)) return;
+    const wasPlaying = !!state.player?.isPlaying;
+    const progressTicks = state.player?.progressTicks || 0;
+    if (wasPlaying) state.player.pause();
+
+    state.tempoBpm = Math.max(10, state.tempoBpm + delta);
+    tempoValueNode.textContent = String(state.tempoBpm);
+    const tempo = Math.round(60000000 / state.tempoBpm);
+    if (state.liveScore.playback.tempos?.length) state.liveScore.playback.tempos[0].tempo = tempo;
+    else state.liveScore.playback.tempos = [{ tick: 0, tempo }];
+
+    clearScheduledTasks();
+    clearHighlights();
+    if (widgets?.MidiAudio?.stopAllNotes) widgets.MidiAudio.stopAllNotes();
+    const notation = buildMidiNotation(state.liveScore.playback);
+    state.player = notation ? buildPlayer(notation) : null;
+    if (state.player) state.player.progressTicks = progressTicks;
+    playToggle.disabled = !state.player;
+    updateCursor(progressTicks);
+    if (wasPlaying) playMidi().catch(error => setStatus(`Playback failed: ${error.message}`));
   }
 
   async function loadScoreFromHash() {
     const scoreUrl = parseHashUrl();
     state.scoreId += 1;
     const requestId = state.scoreId;
-    scoreUrlNode.value = scoreUrl;
+    if (scoreUrlNode) scoreUrlNode.value = scoreUrl;
     resetPlayer();
     stage.innerHTML = "";
-    tempoNode.textContent = "Tempo: -- bpm";
+    tempoValueNode.textContent = "--";
+    tempoUp.disabled = true;
+    tempoDown.disabled = true;
 
     if (!scoreUrl) {
       state.liveScore = null;
@@ -640,6 +846,9 @@
 
     if (wasPlaying) await playMidi();
   }
+
+  tempoUp.addEventListener("click", () => applyTempo(10));
+  tempoDown.addEventListener("click", () => applyTempo(-10));
 
   playToggle.addEventListener("click", () => {
     togglePlayback().catch(error => {

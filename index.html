@@ -113,12 +113,12 @@
 
             <h3>How BeadSolver Becomes an MDP</h3>
             <p>
-              How can structure decoding across multiple voices be formulated as a Markov decision process? One useful intuition is to treat each barline as a space-time portal: the solver may finish one voice, jump through the barline, and continue from the beginning of another voice, while keeping the global measure structure consistent.
+              How can structure decoding across multiple voices be formulated as a Markov decision process? One useful intuition is to treat each barline as a <em>space-time portal</em>: the solver may finish one voice, jump through the barline, and continue from the beginning of another voice, while keeping the global measure structure consistent.
             </p>
             <figure class="figure-block section-figure">
               <img class="anim-narrow" src="assets/figures/fig-5-b-anim.svg" alt="Animated intuition for multi-voice structure decoding as an MDP with barlines acting like space-time portals." />
               <figcaption>
-                <span class="caption-title">Barlines as space-time portals.</span>
+                <span class="caption-title">Barlines as portals.</span>
                 The animated path shows how decoding can move across voices while still building one coherent measure-level topology.
               </figcaption>
             </figure>
@@ -178,22 +178,68 @@
           </article>
         </section>
 
-        <!--section class="card section-card">
+        <section class="card section-card">
           <h2>Show Cases</h2>
           <p>
-            The playground below loads a real Starry recognition footage and renders the decoded symbolic structure directly in the browser. It is intentionally lightweight: the embedded view focuses on score inspection, with the original-image toggle available for comparing decoded notation against visual evidence.
+            Select a recognition result below to inspect the decoded symbolic structure directly in the browser. The embedded playground focuses on score inspection, with the original-image toggle available for comparing decoded notation against visual evidence.
           </p>
+          <div class="score-tabs" id="score-tabs" role="tablist" aria-label="Showcase scores"></div>
           <div class="playground-embed" role="region" aria-label="Embedded Starry score playground">
             <iframe
-              title="Starry score playground with recognition footage"
-              src="playground.html#footages/1777468407378.json"
+              id="showcase-playground"
+              title="Starry score playground with recognition result"
               loading="lazy"
             ></iframe>
           </div>
-        </section-->
+        </section>
       </main>
     </div>
     <script>
+
+      const scoreTabs = document.getElementById('score-tabs');
+      const showcasePlayground = document.getElementById('showcase-playground');
+
+      const formatScoreLabel = (filename) => filename
+        .replace(/\.livescore\.json$/i, '')
+        .replace(/[-_]+/g, ' ')
+        .replace(/\w/g, (letter) => letter.toUpperCase());
+
+      const selectScore = (filename, button) => {
+        scoreTabs.querySelectorAll('.score-tab').forEach((tab) => {
+          tab.classList.toggle('is-active', tab === button);
+          tab.setAttribute('aria-selected', tab === button ? 'true' : 'false');
+        });
+        showcasePlayground.src = `playground.html#assets/scores/${encodeURIComponent(filename)}`;
+      };
+
+      fetch('assets/scores/manifest.json')
+        .then((response) => {
+          if (!response.ok) throw new Error(`manifest ${response.status}`);
+          return response.json();
+        })
+        .then((scores) => {
+          const files = Array.isArray(scores) ? scores.filter((name) => typeof name === 'string' && name.endsWith('.livescore.json')) : [];
+          if (!files.length) {
+            scoreTabs.textContent = 'No showcase scores available.';
+            return;
+          }
+
+          files.forEach((filename, index) => {
+            const button = document.createElement('button');
+            button.className = 'score-tab';
+            button.type = 'button';
+            button.role = 'tab';
+            button.textContent = formatScoreLabel(filename);
+            button.setAttribute('aria-selected', 'false');
+            button.addEventListener('click', () => selectScore(filename, button));
+            scoreTabs.appendChild(button);
+            if (index === 0) selectScore(filename, button);
+          });
+        })
+        .catch(() => {
+          scoreTabs.textContent = 'Unable to load showcase scores.';
+        });
+
       document.querySelectorAll('.solver-player').forEach((player) => {
         const object = player.querySelector('object');
 

@@ -377,6 +377,42 @@ main {
   display: block;
 }
 
+.score-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.score-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border: 1px solid rgba(31, 35, 40, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.score-tab:hover,
+.score-tab:focus-visible {
+  border-color: rgba(138, 59, 46, 0.38);
+  color: var(--accent-strong);
+  box-shadow: 0 6px 16px rgba(65, 43, 28, 0.1);
+}
+
+.score-tab.is-active {
+  border-color: rgba(138, 59, 46, 0.52);
+  background: var(--accent);
+  color: #fffaf3;
+}
+
 .playground-embed {
   margin-top: 18px;
   border: 1px solid rgba(60, 52, 43, 0.12);

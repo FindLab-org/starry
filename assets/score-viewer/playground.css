@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 16px;
+  padding: 10px;
   overflow: hidden;
   box-sizing: border-box;
   background: #f0f2f5;
@@ -24,28 +24,36 @@
   flex: 0 0 auto;
   z-index: 10;
   display: grid;
-  gap: 12px;
-  margin: 0 0 16px;
-  padding: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  gap: 6px;
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .viewer-toolbar {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .viewer-toolbar button {
-  border: 1px solid rgba(31, 35, 40, 0.22);
-  border-radius: 6px;
-  background: #1677ff;
-  color: #fff;
-  padding: 8px 16px;
+  border: 1px solid rgba(31, 35, 40, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1f2328;
+  padding: 5px 11px;
   font: inherit;
+  font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+.viewer-toolbar .play-button {
+  background: #1677ff;
+  border-color: #1677ff;
+  color: #fff;
 }
 
 .viewer-toolbar button:disabled {
@@ -53,30 +61,51 @@
   cursor: default;
 }
 
-.viewer-meta,
 .viewer-status,
 .toggle-field,
-.viewer-url-row label {
+.tempo-control {
   color: #6a6257;
+}
+
+.toggle-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.tempo-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.tempo-note {
+  font-size: 1.12rem;
+  line-height: 1;
+}
+
+.tempo-buttons {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-left: 2px;
+}
+
+.viewer-toolbar .tempo-buttons button {
+  width: 16px;
+  height: 13px;
+  padding: 0;
+  border-radius: 3px;
+  font-size: 10px;
+  line-height: 1;
 }
 
 .viewer-status {
   margin-left: auto;
-}
-
-.viewer-url-row {
-  display: grid;
-  gap: 6px;
-}
-
-.viewer-url-row input {
-  width: 100%;
-  border: 1px solid rgba(31, 35, 40, 0.14);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.82);
-  padding: 8px 10px;
-  font: inherit;
-  color: #1f2328;
+  font-size: 0.86rem;
 }
 
 .live-score-stage-wrap {
@@ -92,7 +121,7 @@
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 24px;
+  padding: 18px;
   box-sizing: border-box;
 }
 
@@ -108,6 +137,7 @@
 .live-score-page-frame {
   flex: 0 0 auto;
   height: 100%;
+  position: relative;
 }
 
 .live-score-page {
@@ -118,6 +148,43 @@
   background: #fff;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   color: #111;
+}
+
+
+.live-score-page .text-token text.Title {
+  font-weight: 700;
+  fill: #333;
+}
+
+.live-score-page .text-token text.Author {
+  fill: #355;
+}
+
+.live-score-page .text-token text.TempoNumeral {
+  fill: rgba(0, 85, 0, 0.35);
+}
+
+.live-score-page .text-token text {
+  fill: steelblue;
+  user-select: none;
+}
+
+.staff-brackets {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.staff-brackets .bracket rect,
+.staff-brackets .bracket path,
+.staff-brackets .brace path {
+  fill: currentColor;
+  stroke: none;
+}
+
+.staff-brackets .square line,
+.staff-brackets .connection {
+  stroke: currentColor;
+  fill: none;
 }
 
 .live-score-empty {
@@ -155,21 +222,22 @@
   stroke-width: 0;
 }
 
-.live-score-system .cursor {
-  stroke: #1677ff;
-  stroke-width: 0.35px;
+.live-score-system .active-measure {
+  fill: rgba(22, 119, 255, 0.18);
   pointer-events: none;
 }
 
 .live-score-page use {
-  fill: currentColor;
-  color: currentColor;
+  color: #1677ff;
+  fill: #1677ff;
+  opacity: 0;
 }
 
 .live-score-page .notePlayOn,
 .score-notehead.on {
-  color: #f5222d;
-  fill: #f5222d;
+  color: #1677ff;
+  fill: #1677ff;
+  opacity: 1;
 }
 
 .score-token-defs text {

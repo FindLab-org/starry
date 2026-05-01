@@ -14,15 +14,18 @@
   <body class="viewer-body">
     <main class="live-score-viewer">
       <section class="card live-score-controls">
+        <input id="score-url" type="hidden" />
         <div class="viewer-toolbar">
-          <button id="play-toggle" type="button" disabled>Play</button>
-          <label class="toggle-field"><input id="original-toggle" type="checkbox" checked /> Original image</label>
-          <span id="tempo-label" class="viewer-meta">Tempo: -- bpm</span>
+          <button id="play-toggle" class="play-button" type="button" disabled>Play</button>
+          <label class="toggle-field"><input id="original-toggle" type="checkbox" checked /> Original</label>
+          <span class="tempo-control" aria-label="Playback tempo">
+            <span class="tempo-note" aria-hidden="true">&#x1D15F;</span><span>=</span><span id="tempo-value">--</span>
+            <span class="tempo-buttons" aria-label="Adjust tempo">
+              <button id="tempo-up" type="button" aria-label="Increase tempo by 10 bpm">+</button>
+              <button id="tempo-down" type="button" aria-label="Decrease tempo by 10 bpm">−</button>
+            </span>
+          </span>
           <span id="viewer-status" class="viewer-status">Waiting for a hash URL.</span>
-        </div>
-        <div class="viewer-url-row">
-          <label for="score-url">Score URL</label>
-          <input id="score-url" type="text" readonly />
         </div>
       </section>
 
