@@ -259,10 +259,8 @@
           if (!svg) return;
 
           if (player.classList.toggle('is-playing')) {
-            svg.setCurrentTime?.(0);
             svg.unpauseAnimations?.();
           } else {
-            svg.setCurrentTime?.(0);
             svg.pauseAnimations?.();
           }
         });
