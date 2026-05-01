@@ -72,7 +72,8 @@
   }
 
   function setPlayingUi(isPlaying) {
-    playToggle.textContent = isPlaying ? "Pause" : "Play";
+    playToggle.textContent = isPlaying ? "⏸" : "⏵";
+    playToggle.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
   }
 
   function clearScheduledTasks() {
@@ -517,7 +518,7 @@
 
   function renderLiveScorePage(liveScore, page, pageIndex) {
     const svg = createSvgNode("svg", { class: "live-score-page", viewBox: `0 0 ${page.w} ${page.h}` });
-    const showSource = originalToggle.checked;
+    const showSource = originalToggle.getAttribute("aria-pressed") === "true";
 
     if (showSource && page.source?.url) {
       svg.appendChild(createSvgNode("image", {
@@ -857,7 +858,11 @@
     });
   });
 
-  originalToggle.addEventListener("change", () => {
+  originalToggle.addEventListener("click", () => {
+    const enabled = originalToggle.getAttribute("aria-pressed") !== "true";
+    originalToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+    originalToggle.classList.toggle("is-active", enabled);
+    originalToggle.textContent = enabled ? "Original" : "Parsed";
     renderScore();
   });
 

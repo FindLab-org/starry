@@ -10,11 +10,19 @@
   background: #f0f2f5;
 }
 
+.viewer-body main {
+  gap: 0;
+}
+
+.viewer-body .card {
+  border-radius: 0;
+}
+
 .live-score-viewer {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 10px;
+  padding: 0;
   overflow: hidden;
   box-sizing: border-box;
   background: #f0f2f5;
@@ -24,36 +32,42 @@
   flex: 0 0 auto;
   z-index: 10;
   display: grid;
-  gap: 6px;
-  margin: 0 0 8px;
-  padding: 8px 10px;
-  border-radius: 12px;
+  gap: 4px;
+  margin: 0;
+  padding: 4px 6px;
+  border-radius: 0;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .viewer-toolbar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .viewer-toolbar button {
   border: 1px solid rgba(31, 35, 40, 0.16);
-  border-radius: 999px;
+  border-radius: 0;
   background: rgba(255, 255, 255, 0.9);
   color: #1f2328;
-  padding: 5px 11px;
+  padding: 4px 9px;
   font: inherit;
   font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
 }
 
-.viewer-toolbar .play-button {
+.viewer-toolbar .play-button,
+.viewer-toolbar .mode-toggle.is-active {
   background: #1677ff;
   border-color: #1677ff;
   color: #fff;
+}
+
+.viewer-toolbar .mode-toggle:not(.is-active) {
+  background: #fff;
+  color: #1f2328;
 }
 
 .viewer-toolbar button:disabled {
@@ -98,7 +112,7 @@
   width: 16px;
   height: 13px;
   padding: 0;
-  border-radius: 3px;
+  border-radius: 0;
   font-size: 10px;
   line-height: 1;
 }
@@ -121,14 +135,14 @@
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 18px;
+  padding: 0;
   box-sizing: border-box;
 }
 
 .live-score-pages {
   display: flex;
   align-items: stretch;
-  gap: 24px;
+  gap: 0;
   width: max-content;
   height: 100%;
   min-width: 100%;
@@ -146,7 +160,6 @@
   height: 100%;
   margin: 0;
   background: #fff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   color: #111;
 }
 
@@ -195,7 +208,7 @@
   text-align: center;
   color: #888;
   background: #fff;
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 .live-score-staff line {
@@ -261,11 +274,11 @@
 
 @media (max-width: 760px) {
   .live-score-viewer {
-    padding: 10px;
+    padding: 0;
   }
 
   .live-score-controls {
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
 
   .viewer-toolbar {
@@ -278,6 +291,6 @@
   }
 
   .live-score-stage {
-    padding: 12px;
+    padding: 0;
   }
 }

@@ -16,8 +16,8 @@
       <section class="card live-score-controls">
         <input id="score-url" type="hidden" />
         <div class="viewer-toolbar">
-          <button id="play-toggle" class="play-button" type="button" disabled>Play</button>
-          <label class="toggle-field"><input id="original-toggle" type="checkbox" checked /> Original</label>
+          <button id="play-toggle" class="play-button" type="button" disabled aria-label="Play">⏵</button>
+          <button id="original-toggle" class="mode-toggle is-active" type="button" aria-pressed="true">Original</button>
           <span class="tempo-control" aria-label="Playback tempo">
             <span class="tempo-note" aria-hidden="true">&#x1D15F;</span><span>=</span><span id="tempo-value">--</span>
             <span class="tempo-buttons" aria-label="Adjust tempo">
