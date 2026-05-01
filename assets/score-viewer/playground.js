@@ -26,6 +26,7 @@
     activePage: null,
     baseTempo: null,
     tempoBpm: null,
+    hoverSourcePage: null,
   };
 
   const NOTEHEAD_TYPES = new Set([
@@ -518,7 +519,8 @@
 
   function renderLiveScorePage(liveScore, page, pageIndex) {
     const svg = createSvgNode("svg", { class: "live-score-page", viewBox: `0 0 ${page.w} ${page.h}` });
-    const showSource = originalToggle.getAttribute("aria-pressed") === "true";
+    const originalMode = originalToggle.getAttribute("aria-pressed") === "true";
+    const showSource = originalMode || state.hoverSourcePage === pageIndex;
 
     if (showSource && page.source?.url) {
       svg.appendChild(createSvgNode("image", {
@@ -638,6 +640,16 @@
     const pages = createNode("div", { class: "live-score-pages" });
     state.liveScore.pages.forEach((page, pageIndex) => {
       const frame = createNode("article", { class: "live-score-page-frame" });
+      frame.addEventListener("mouseenter", () => {
+        if (originalToggle.getAttribute("aria-pressed") === "true" || state.hoverSourcePage === pageIndex) return;
+        state.hoverSourcePage = pageIndex;
+        renderScore();
+      });
+      frame.addEventListener("mouseleave", () => {
+        if (state.hoverSourcePage !== pageIndex) return;
+        state.hoverSourcePage = null;
+        renderScore();
+      });
       frame.appendChild(renderLiveScorePage(state.liveScore, page, pageIndex));
       pages.appendChild(frame);
       state.pageFrames.push(frame);
@@ -863,6 +875,7 @@
     originalToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
     originalToggle.classList.toggle("is-active", enabled);
     originalToggle.textContent = enabled ? "Original" : "Parsed";
+    state.hoverSourcePage = null;
     renderScore();
   });
 

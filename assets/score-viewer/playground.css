@@ -18,6 +18,10 @@
   border-radius: 0;
 }
 
+.card button {
+  border-radius: 16px;
+}
+
 .live-score-viewer {
   display: flex;
   flex-direction: column;
@@ -35,7 +39,6 @@
   gap: 4px;
   margin: 0;
   padding: 4px 6px;
-  border-radius: 0;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
@@ -48,7 +51,6 @@
 
 .viewer-toolbar button {
   border: 1px solid rgba(31, 35, 40, 0.16);
-  border-radius: 0;
   background: rgba(255, 255, 255, 0.9);
   color: #1f2328;
   padding: 4px 9px;
@@ -112,7 +114,6 @@
   width: 16px;
   height: 13px;
   padding: 0;
-  border-radius: 0;
   font-size: 10px;
   line-height: 1;
 }

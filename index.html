@@ -209,7 +209,8 @@
           tab.classList.toggle('is-active', tab === button);
           tab.setAttribute('aria-selected', tab === button ? 'true' : 'false');
         });
-        showcasePlayground.src = `playground.html#assets/scores/${encodeURIComponent(filename)}`;
+        const version = new Date().toISOString().replace(/-/g, '');
+        showcasePlayground.src = `playground.html?v=${version}#assets/scores/${encodeURIComponent(filename)}`;
       };
 
       fetch('assets/scores/manifest.json')
