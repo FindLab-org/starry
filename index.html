@@ -41,7 +41,7 @@
         <section class="card section-card">
           <h2>System Overview</h2>
           <p>
-            Starry treats OMR as a staged transformation from images to editable music structure. The visual system operates at per-page and per-staff levels to produce event candidates, regulation then resolves measure-level topology into a serialized representation, and the final translation stage exports standard music-language formats.
+            Starry treats OMR as a staged transformation from images to editable music structure. The visual system operates at per-page and per-staff levels to produce event candidates, and regulation resolves measure-level topology into a serialized representation that can be exported to standard music-language formats such as MusicXML and LilyPond.
           </p>
 
           <div class="figure-stack">
@@ -143,7 +143,7 @@
           <article class="card section-card">
             <h2>The Regulation Method: BeadSolver</h2>
             <p>
-              BeadSolver treats measure-level decoding as a topology problem. Instead of asking the system to predict a complete polyphonic structure in one shot, it incrementally builds voice chains among event candidates and checks whether the resulting measure becomes globally coherent in time.
+              BeadSolver treats measure-level decoding as a topology problem. Instead of asking the system to predict a complete polyphonic structure in one shot, it uses probability-guided tree search to explore candidate voice-chain assignments among event candidates, then selects a topology that becomes globally coherent in time.
             </p>
 
             <div class="voice-target-flow" aria-label="Regulation target: raw measure to voice structure">
@@ -233,7 +233,7 @@
 
             <h3>BeadPicker</h3>
             <p>
-              BeadPicker is the learned model inside the solver. At each step, it reads the current measure candidates together with the committed prefix, then estimates which continuation is plausible and provides the local attribute hints that guide search without deciding the final structure on its own.
+              BeadPicker is the learned model inside the solver. At each step, it reads the current measure candidates together with the committed prefix, then estimates a probability distribution over which event should come next, including voice-closing boundary markers, and provides duration predispositions and tick estimates used by the evaluator.
             </p>
             <figure class="figure-block section-figure">
               <img src="assets/figures/figure-9-beadpicker-arch.svg" alt="BeadPicker Transformer architecture for topology recognition." />
