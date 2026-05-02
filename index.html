@@ -60,6 +60,7 @@
                 <button class="pipeline-hotspot pipeline-hotspot-straighten" type="button" data-pipeline-step="straighten" aria-label="Show staff straightening examples"></button>
                 <button class="pipeline-hotspot pipeline-hotspot-semantic" type="button" data-pipeline-step="semantic" aria-label="Show semantic heatmap examples"></button>
                 <button class="pipeline-hotspot pipeline-hotspot-mask" type="button" data-pipeline-step="mask" aria-label="Show foreground mask examples"></button>
+                <button class="pipeline-hotspot pipeline-hotspot-brackets" type="button" data-pipeline-step="brackets" aria-label="Show brackets predictor examples"></button>
               </div>
               <div class="pipeline-bubbles" aria-label="Visual predictor examples">
                 <article class="pipeline-bubble is-active" data-pipeline-bubble="layout">
@@ -69,17 +70,20 @@
                   </div>
                   <div class="pipeline-bubble-images" aria-label="Layout input and output">
                     <img src="assets/figures/fig-3/a1.png" alt="Layout predictor input page." />
+                    <span class="pipeline-example-arrow" aria-hidden="true">&#x279C;</span>
                     <img src="assets/figures/fig-3/a2.png" alt="Layout predictor output heatmap." />
                   </div>
                 </article>
                 <article class="pipeline-bubble" data-pipeline-bubble="straighten">
                   <div class="pipeline-bubble-copy">
                     <span class="pipeline-bubble-step">Staff straightening</span>
-                    <p>Estimate staff geometry, then render a rectified staff crop for downstream predictors.</p>
+                    <p>Estimate staff distortion, then render a <br/>rectified staff crop for downstream predictors.</p>
                   </div>
                   <div class="pipeline-bubble-images" aria-label="Straightening input, gauge output, and rectified staff">
                     <img src="assets/figures/fig-3/b1.png" alt="Gauge predictor input staff crop." />
+                    <span class="pipeline-example-arrow" aria-hidden="true">&#x279C;</span>
                     <img src="assets/figures/fig-3/b2.png" alt="Gauge predictor geometry output." />
+                    <span class="pipeline-example-arrow" aria-hidden="true">&#x279C;</span>
                     <img src="assets/figures/fig-3/b3.png" alt="Rectified straightened staff rendering." />
                   </div>
                 </article>
@@ -90,6 +94,7 @@
                   </div>
                   <div class="pipeline-bubble-images" aria-label="Semantic input and heatmap output">
                     <img src="assets/figures/fig-3/d1.png" alt="Semantic predictor input staff crop." />
+                    <span class="pipeline-example-arrow" aria-hidden="true">&#x279C;</span>
                     <img src="assets/figures/fig-3/d2.png" alt="Semantic predictor output heatmap composite." />
                   </div>
                 </article>
@@ -100,7 +105,21 @@
                   </div>
                   <div class="pipeline-bubble-images" aria-label="Mask input and output">
                     <img src="assets/figures/fig-3/c1.png" alt="Mask predictor input corrected staff." />
+                    <span class="pipeline-example-arrow" aria-hidden="true">&#x279C;</span>
                     <img src="assets/figures/fig-3/c2.png" alt="Mask predictor foreground output." />
+                  </div>
+                </article>
+                <article class="pipeline-bubble" data-pipeline-bubble="brackets">
+                  <div class="pipeline-bubble-copy">
+                    <span class="pipeline-bubble-step">Brackets</span>
+                    <p>Recognize staff grouping marks at the left edge of a system and serialize them as structural tokens.</p>
+                  </div>
+                  <div class="pipeline-bubble-images pipeline-bracket-example" aria-label="Bracket input and token output">
+                    <div class="pipeline-bracket-crop" role="img" aria-label="Cropped left brace area of a piano grand staff.">
+                      <img src="assets/figures/regulation-input.jpg" alt="" />
+                    </div>
+                    <span class="pipeline-example-arrow" aria-hidden="true">&#x279C;</span>
+                    <div class="pipeline-token-output" aria-label="Bracket token output">{-}</div>
                   </div>
                 </article>
               </div>
@@ -255,7 +274,7 @@
         <section class="card section-card">
           <h2>Links</h2>
           <ul>
-            <li><a class="text-link" href="https://findlab-org.github.io/" target="_blank" rel="noreferrer">FindLab</a></li>
+            <li><a class="text-link" href="https://findlab-org.github.io/" target="_blank" rel="noreferrer">FindLab team blog</a></li>
             <li><a class="text-link" href="https://k-l-lambda.github.io/" target="_blank" rel="noreferrer">K.L. Λ's personal blog</a></li>
           </ul>
         </section>
@@ -316,6 +335,8 @@
           ['straighten', 'straighten'],
           ['semantic', 'semantic'],
           ['mask', 'mask'],
+          ['brackets', 'brackets'],
+          ['bracket', 'brackets'],
           ['gauge', 'straighten'],
           ['staff', 'straighten']
         ]);
