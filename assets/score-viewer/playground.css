@@ -123,6 +123,17 @@
   font-size: 0.86rem;
 }
 
+.viewer-mobile-tip {
+  margin: 2px 0 0;
+  color: #8a5a00;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.viewer-mobile-tip[hidden] {
+  display: none;
+}
+
 .live-score-stage-wrap {
   flex: 1 1 auto;
   min-height: 0;

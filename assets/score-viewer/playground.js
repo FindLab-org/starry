@@ -8,6 +8,7 @@
   const tempoDown = document.getElementById("tempo-down");
   const playToggle = document.getElementById("play-toggle");
   const originalToggle = document.getElementById("original-toggle");
+  const mobilePerformanceTip = document.getElementById("mobile-performance-tip");
 
   const SVG_NS = "http://www.w3.org/2000/svg";
   const DEFAULT_SOUNDFONT_URL = "assets/soundfont/";
@@ -45,6 +46,10 @@
 
   function isNoteheadToken(token) {
     return NOTEHEAD_TYPES.has(tokenType(token));
+  }
+
+  function isMobileBrowser() {
+    return window.matchMedia("(pointer: coarse)").matches || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   }
 
   function setStatus(text) {
@@ -969,6 +974,8 @@
   window.addEventListener("hashchange", () => {
     loadScoreFromHash().catch(error => setStatus(`Failed to load LiveScore: ${error.message}`));
   });
+
+  if (isMobileBrowser()) mobilePerformanceTip.hidden = false;
 
   if (!widgets) {
     playToggle.disabled = true;
