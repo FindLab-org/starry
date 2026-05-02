@@ -53,8 +53,57 @@
               </figcaption>
             </figure>
 
-            <figure class="figure-block section-figure">
-              <img src="assets/figures/figure-2-cv-pipeline.svg" alt="Visual pipeline for candidate generation in the Starry OMR system." />
+            <figure class="figure-block section-figure pipeline-figure" data-pipeline-figure>
+              <div class="pipeline-image-wrap">
+                <img src="assets/figures/figure-2-cv-pipeline.svg" alt="Visual pipeline for candidate generation in the Starry OMR system." />
+                <button class="pipeline-hotspot pipeline-hotspot-layout" type="button" data-pipeline-step="layout" aria-label="Show layout analysis examples"></button>
+                <button class="pipeline-hotspot pipeline-hotspot-straighten" type="button" data-pipeline-step="straighten" aria-label="Show staff straightening examples"></button>
+                <button class="pipeline-hotspot pipeline-hotspot-semantic" type="button" data-pipeline-step="semantic" aria-label="Show semantic heatmap examples"></button>
+                <button class="pipeline-hotspot pipeline-hotspot-mask" type="button" data-pipeline-step="mask" aria-label="Show foreground mask examples"></button>
+              </div>
+              <div class="pipeline-bubbles" aria-label="Visual predictor examples">
+                <article class="pipeline-bubble is-active" data-pipeline-bubble="layout">
+                  <div class="pipeline-bubble-copy">
+                    <span class="pipeline-bubble-step">Layout analysis</span>
+                    <p>Find page-level staff regions and structural guide lines before staff-local recognition.</p>
+                  </div>
+                  <div class="pipeline-bubble-images" aria-label="Layout input and output">
+                    <img src="assets/figures/fig-3/a1.png" alt="Layout predictor input page." />
+                    <img src="assets/figures/fig-3/a2.png" alt="Layout predictor output heatmap." />
+                  </div>
+                </article>
+                <article class="pipeline-bubble" data-pipeline-bubble="straighten">
+                  <div class="pipeline-bubble-copy">
+                    <span class="pipeline-bubble-step">Staff straightening</span>
+                    <p>Estimate staff geometry, then render a rectified staff crop for downstream predictors.</p>
+                  </div>
+                  <div class="pipeline-bubble-images" aria-label="Straightening input, gauge output, and rectified staff">
+                    <img src="assets/figures/fig-3/b1.png" alt="Gauge predictor input staff crop." />
+                    <img src="assets/figures/fig-3/b2.png" alt="Gauge predictor geometry output." />
+                    <img src="assets/figures/fig-3/b3.png" alt="Rectified straightened staff rendering." />
+                  </div>
+                </article>
+                <article class="pipeline-bubble" data-pipeline-bubble="semantic">
+                  <div class="pipeline-bubble-copy">
+                    <span class="pipeline-bubble-step">Semantic heatmaps</span>
+                    <p>Predict notation-class heatmaps that become local evidence for candidate assembly.</p>
+                  </div>
+                  <div class="pipeline-bubble-images" aria-label="Semantic input and heatmap output">
+                    <img src="assets/figures/fig-3/d1.png" alt="Semantic predictor input staff crop." />
+                    <img src="assets/figures/fig-3/d2.png" alt="Semantic predictor output heatmap composite." />
+                  </div>
+                </article>
+                <article class="pipeline-bubble" data-pipeline-bubble="mask">
+                  <div class="pipeline-bubble-copy">
+                    <span class="pipeline-bubble-step">Foreground mask</span>
+                    <p>Separate notation foreground from the corrected staff image before symbol grouping.</p>
+                  </div>
+                  <div class="pipeline-bubble-images" aria-label="Mask input and output">
+                    <img src="assets/figures/fig-3/c1.png" alt="Mask predictor input corrected staff." />
+                    <img src="assets/figures/fig-3/c2.png" alt="Mask predictor foreground output." />
+                  </div>
+                </article>
+              </div>
               <figcaption>
                 <span class="caption-title">Visual pipeline.</span>
                 The system first produces robust local evidence with layout analysis, staff processing, semantic heatmaps, OCR, and candidate assembly before any global structural commitment is made.
@@ -202,6 +251,14 @@
             <a class="text-link" href="https://huggingface.co/spaces/k-l-lambda/starry" target="_blank" rel="noreferrer">🤗 Open the Starry✨ live demo</a>
           </p>
         </section>
+
+        <section class="card section-card">
+          <h2>Links</h2>
+          <ul>
+            <li><a class="text-link" href="https://findlab-org.github.io/" target="_blank" rel="noreferrer">FindLab</a></li>
+            <li><a class="text-link" href="https://k-l-lambda.github.io/" target="_blank" rel="noreferrer">K.L. Λ's personal blog</a></li>
+          </ul>
+        </section>
       </main>
     </div>
     <script>
@@ -250,6 +307,83 @@
         .catch(() => {
           scoreTabs.textContent = 'Unable to load showcase scores.';
         });
+
+      const pipelineFigure = document.querySelector('[data-pipeline-figure]');
+      if (pipelineFigure) {
+        const bubbles = Array.from(pipelineFigure.querySelectorAll('[data-pipeline-bubble]'));
+        const stepAliases = new Map([
+          ['layout', 'layout'],
+          ['straighten', 'straighten'],
+          ['semantic', 'semantic'],
+          ['mask', 'mask'],
+          ['gauge', 'straighten'],
+          ['staff', 'straighten']
+        ]);
+        const hotspots = new Map(
+          Array.from(pipelineFigure.querySelectorAll('[data-pipeline-step]'), (hotspot) => [
+            stepAliases.get(hotspot.dataset.pipelineStep) || hotspot.dataset.pipelineStep,
+            hotspot
+          ])
+        );
+        let bubbleIndex = 0;
+        let bubbleTimer;
+
+        const showPipelineBubble = (step) => {
+          const canonicalStep = stepAliases.get(step) || step;
+          const nextIndex = bubbles.findIndex((bubble) => bubble.dataset.pipelineBubble === canonicalStep);
+          if (nextIndex === -1) return;
+          bubbleIndex = nextIndex;
+          const hotspot = hotspots.get(canonicalStep);
+          const bubblesFrame = pipelineFigure.querySelector('.pipeline-bubbles');
+          if (hotspot && bubblesFrame) {
+            const hotspotRect = hotspot.getBoundingClientRect();
+            const bubblesRect = bubblesFrame.getBoundingClientRect();
+            const pointerX = hotspotRect.left + hotspotRect.width / 2 - bubblesRect.left;
+            const pointerHeight = bubblesRect.top - hotspotRect.bottom + 1;
+            bubblesFrame.style.setProperty('--pipeline-pointer-x', `${pointerX}px`);
+            bubblesFrame.style.setProperty('--pipeline-pointer-height', `${Math.max(18, pointerHeight)}px`);
+            hotspots.forEach((item) => item.classList.toggle('is-active', item === hotspot));
+          }
+          bubbles.forEach((bubble, index) => {
+            bubble.classList.toggle('is-active', index === bubbleIndex);
+          });
+        };
+
+        const startPipelineCycle = () => {
+          window.clearInterval(bubbleTimer);
+          bubbleTimer = window.setInterval(() => {
+            bubbleIndex = (bubbleIndex + 1) % bubbles.length;
+            showPipelineBubble(bubbles[bubbleIndex].dataset.pipelineBubble);
+          }, 3200);
+        };
+
+        pipelineFigure.addEventListener('pointerover', (event) => {
+          const step = event.target.closest('[data-pipeline-step]')?.dataset.pipelineStep;
+          if (!step) return;
+          window.clearInterval(bubbleTimer);
+          showPipelineBubble(step);
+        });
+
+        pipelineFigure.addEventListener('pointerout', (event) => {
+          if (pipelineFigure.contains(event.relatedTarget)) return;
+          startPipelineCycle();
+        });
+
+        pipelineFigure.addEventListener('focusin', (event) => {
+          const step = event.target.closest('[data-pipeline-step]')?.dataset.pipelineStep;
+          if (!step) return;
+          window.clearInterval(bubbleTimer);
+          showPipelineBubble(step);
+        });
+
+        pipelineFigure.addEventListener('focusout', () => {
+          if (pipelineFigure.matches(':focus-within')) return;
+          startPipelineCycle();
+        });
+
+        showPipelineBubble(bubbles[bubbleIndex].dataset.pipelineBubble);
+        startPipelineCycle();
+      }
 
       document.querySelectorAll('.solver-player').forEach((player) => {
         const object = player.querySelector('object');
