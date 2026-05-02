@@ -1,5 +1,7 @@
 # From Image to Music Language: A Two-Stage Structure Decoding Approach for Complex Polyphonic OMR
 
+[![Deploy GitHub Pages](https://github.com/FindLab-org/starry/actions/workflows/pages.yml/badge.svg)](https://github.com/FindLab-org/starry/actions/workflows/pages.yml)
+
 - Blog: https://findlab-org.github.io/starry/
 - Paper: [arXiv:2604.20522](https://arxiv.org/abs/2604.20522)
 - Live Demo: [&#x1f917;Starry space](https://huggingface.co/spaces/k-l-lambda/starry)
