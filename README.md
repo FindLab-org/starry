@@ -15,7 +15,7 @@ We propose a new approach for a practical two-stage Optical Music Recognition (O
 
 ## Relative Repositories
 
-* [Lotus](https://github.com/k-l-lambda/lotus) — an SVG/LilyPond geometry pipeline used by the paper to recover per-glyph positions from engraved scores, giving generated topology samples realistic spatial layouts.
-* [Paraff](https://github.com/FindLab-org/paraff) — a compact symbolic-music DSL used in the paper's data-generation strategy to sample structurally valid measure-level music for topology-recognition training; this project is now archived, with *Lilylet* as its successor.
-* [IMSLP-Mining](https://github.com/k-l-lambda/imslp-mining) — a related data-mining project for converting open sheet-music images into usable symbolic datasets.
-* [Lilylet](https://github.com/k-l-lambda/lilylet) — a symbolic-music language designed as a LilyPond variant; Starry OMR supports Lilylet as one of its export formats for structured recognition results.
+* [**Lotus**](https://github.com/k-l-lambda/lotus) — an SVG/LilyPond geometry pipeline used by the paper to recover per-glyph positions from engraved scores, giving generated topology samples realistic spatial layouts.
+* [**Paraff**](https://github.com/FindLab-org/paraff) — a compact symbolic-music DSL used in the paper's data-generation strategy to sample structurally valid measure-level music for topology-recognition training; this project is now archived, with *Lilylet* as its successor.
+* [**IMSLP-Mining**](https://github.com/k-l-lambda/imslp-mining) — a related data-mining project for converting open sheet-music images into usable symbolic datasets.
+* [**Lilylet**](https://github.com/k-l-lambda/lilylet) — a symbolic-music language designed as a LilyPond variant; Starry OMR supports Lilylet as one of its export formats for structured recognition results.
