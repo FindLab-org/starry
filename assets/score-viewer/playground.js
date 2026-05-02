@@ -499,6 +499,76 @@
     }
   }
 
+  function positionedTokenIds(liveScore) {
+    return new Set((liveScore?.playback?.positions || [])
+      .map(position => position.id)
+      .filter(id => id !== undefined && id !== null)
+      .map(String));
+  }
+
+  function noteheadLedgerLines(staff, positionIds) {
+    const stacks = [];
+
+    for (const measure of staff.measures || []) {
+      const noteheads = (measure.tokens || []).filter(token => {
+        if (!isNoteheadToken(token) || !Number.isFinite(token.x) || !Number.isFinite(token.y)) return false;
+        return !positionIds.size || positionIds.has(String(token.id));
+      });
+      const groups = new Map();
+
+      for (const token of noteheads) {
+        const key = Math.round(token.x * 4) / 4;
+        const group = groups.get(key) || { left: token.x - 1.2, right: token.x + 1.2, ys: [] };
+        group.left = Math.min(group.left, token.x - 1.2);
+        group.right = Math.max(group.right, token.x + 1.2);
+        group.ys.push(token.y);
+        groups.set(key, group);
+      }
+
+      for (const group of groups.values()) {
+        if (group.ys.some(y => y <= -3)) {
+          stacks.push({ left: group.left, right: group.right, n: Math.ceil(Math.min(...group.ys)) + 2 });
+        }
+        if (group.ys.some(y => y >= 3)) {
+          stacks.push({ left: group.left, right: group.right, n: Math.floor(Math.max(...group.ys)) - 2 });
+        }
+      }
+    }
+
+    return stacks;
+  }
+
+  function hasPositionedNoteheadForLedgerLine(staff, stack, positionIds) {
+    if (!positionIds.size) return true;
+    const center = (stack.left + stack.right) / 2;
+
+    for (const measure of staff.measures || []) {
+      for (const token of measure.tokens || []) {
+        if (!isNoteheadToken(token) || !positionIds.has(String(token.id)) || !Number.isFinite(token.x) || !Number.isFinite(token.y)) continue;
+        if (Math.abs(token.x - center) > 1.6) continue;
+        if (stack.n < 0 && token.y <= -3) return true;
+        if (stack.n > 0 && token.y >= 3) return true;
+      }
+    }
+
+    return false;
+  }
+
+  function appendLedgerLines(parent, staff, positionIds) {
+    const sourceLines = staff.additionalLines?.length ? staff.additionalLines : noteheadLedgerLines(staff, positionIds);
+    const stacks = sourceLines
+      .map(line => ({ left: line.left, right: line.right, n: line.n }))
+      .filter(line => Number.isFinite(line.left) && Number.isFinite(line.right) && Number.isFinite(line.n) && line.n !== 0)
+      .filter(line => hasPositionedNoteheadForLedgerLine(staff, line, positionIds));
+
+    for (const stack of stacks) {
+      for (let ii = 1; ii <= Math.abs(stack.n); ii += 1) {
+        const y = staff.staffY + (stack.n > 0 ? 2 + ii : -2 - ii);
+        parent.appendChild(createSvgNode("line", { class: "additional-line", x1: stack.left, x2: stack.right, y1: y, y2: y }));
+      }
+    }
+  }
+
   function renderTokens(parent, staff) {
     for (const measure of staff.measures || []) {
       for (const token of measure.tokens || []) {
@@ -526,6 +596,7 @@
     const svg = createSvgNode("svg", { class: "live-score-page", viewBox: `0 0 ${page.w} ${page.h}` });
     const originalMode = originalToggle.getAttribute("aria-pressed") === "true";
     const showSource = originalMode || state.hoverSourcePage === pageIndex;
+    const positionIds = positionedTokenIds(liveScore);
 
     if (showSource && page.source?.url) {
       svg.appendChild(createSvgNode("image", {
@@ -565,9 +636,7 @@
           [-2, -1, 0, 1, 2].forEach(line => {
             staffGroup.appendChild(createSvgNode("line", { x1: 0, x2: system.w, y1: staff.staffY + line, y2: staff.staffY + line }));
           });
-          for (const line of staff.additionalLines || []) {
-            staffGroup.appendChild(createSvgNode("line", { x1: line.left, x2: line.right, y1: staff.staffY + line.n, y2: staff.staffY + line.n }));
-          }
+          appendLedgerLines(staffGroup, staff, positionIds);
         }
         renderTokens(staffGroup, staff);
         systemGroup.appendChild(staffGroup);
