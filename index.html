@@ -39,6 +39,20 @@
         </section>
 
         <section class="card section-card">
+          <h2>What problem we focus on</h2>
+          <p>
+            In complex piano notation, the main bottleneck is often not detecting individual noteheads, stems, or rests, but deciding how locally plausible events should be assembled into voices and timing. Several voices may overlap at nearly the same horizontal position, partial voices may appear only locally, and rhythmic logic can depend on tuplets, grace notes, or whole-measure rest conventions.
+          </p>
+          <figure class="figure-block section-figure problem-figure">
+            <img src="assets/figures/figure-1-a-voice-overlap.jpg" alt="Piano measure with multiple voices overlapping at adjacent horizontal positions." />
+            <figcaption>
+              <span class="caption-title">Multi-voice overlap.</span>
+              Local geometry alone is not enough to decide voice continuation: events that appear close together horizontally may belong to different voices, while a usable score requires globally coherent voice chains and time positions.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="card section-card">
           <h2>System Overview</h2>
           <p>
             Starry treats OMR as a staged transformation from images to editable music structure. The visual system operates at per-page and per-staff levels to produce event candidates, and regulation resolves measure-level topology into a serialized representation that can be exported to standard music-language formats such as MusicXML and LilyPond.

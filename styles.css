@@ -428,6 +428,11 @@ main {
   font-weight: 700;
 }
 
+.problem-figure img {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
 .anim-narrow {
   max-width: 480px;
   margin: 0 auto;
