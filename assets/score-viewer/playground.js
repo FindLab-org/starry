@@ -78,7 +78,7 @@
   }
 
   function setPlayingUi(isPlaying) {
-    playToggle.textContent = isPlaying ? "⏸" : "⏵";
+    playToggle.classList.toggle("is-playing", isPlaying);
     playToggle.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
   }
 

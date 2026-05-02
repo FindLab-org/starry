@@ -67,6 +67,29 @@
   color: #fff;
 }
 
+.viewer-toolbar .play-button {
+  width: 34px;
+  height: 30px;
+  padding: 0;
+}
+
+.viewer-button-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  fill: currentColor;
+}
+
+.viewer-pause-icon,
+.viewer-toolbar .play-button.is-playing .viewer-play-icon {
+  display: none;
+}
+
+.viewer-toolbar .play-button.is-playing .viewer-pause-icon {
+  display: block;
+}
+
 .viewer-toolbar .mode-toggle:not(.is-active) {
   background: #fff;
   color: #1f2328;

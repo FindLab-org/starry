@@ -13,10 +13,21 @@
   </head>
   <body class="viewer-body">
     <main class="live-score-viewer">
+      <svg class="viewer-icon-font" width="0" height="0" aria-hidden="true" focusable="false">
+        <symbol id="viewer-icon-play" viewBox="0 0 24 24">
+          <path d="M8 5.4v13.2L18.6 12 8 5.4Z" />
+        </symbol>
+        <symbol id="viewer-icon-pause" viewBox="0 0 24 24">
+          <path d="M7 5h3.8v14H7V5Zm6.2 0H17v14h-3.8V5Z" />
+        </symbol>
+      </svg>
       <section class="card live-score-controls">
         <input id="score-url" type="hidden" />
         <div class="viewer-toolbar">
-          <button id="play-toggle" class="play-button" type="button" disabled aria-label="Play">⏵</button>
+          <button id="play-toggle" class="play-button" type="button" disabled aria-label="Play">
+            <svg class="viewer-button-icon viewer-play-icon" aria-hidden="true" focusable="false"><use href="#viewer-icon-play"></use></svg>
+            <svg class="viewer-button-icon viewer-pause-icon" aria-hidden="true" focusable="false"><use href="#viewer-icon-pause"></use></svg>
+          </button>
           <button id="original-toggle" class="mode-toggle" type="button" aria-pressed="false">Parsed</button>
           <span class="tempo-control" aria-label="Playback tempo">
             <span class="tempo-note" aria-hidden="true">&#x1D15F;</span><span>=</span><span id="tempo-value">--</span>
